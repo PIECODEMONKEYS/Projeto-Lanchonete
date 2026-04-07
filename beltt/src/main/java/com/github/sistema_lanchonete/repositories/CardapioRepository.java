@@ -12,7 +12,7 @@ public class CardapioRepository {
         this.em = em;
     }
 
-    public Cardapio findById(int id) {
+    public Cardapio findById(long id) {
         return em.find(Cardapio.class, id);
     }
     public void create(Cardapio cardapio) {
