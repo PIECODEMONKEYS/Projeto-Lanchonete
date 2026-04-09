@@ -15,8 +15,8 @@ create table produtos(
 
 create table pedidos(
     id serial primary key,
-      data_hora timestamp default CURRENT_TIMESTAMP null,
-      valor_total numeric(10,2) not null
+    data_hora timestamp default CURRENT_TIMESTAMP null,
+    valor_total numeric(10,2) not null
 );
 
 
@@ -31,10 +31,11 @@ create table pedidos_produtos(
 );
 
 
-create table ingredientes_produtos(
+create table produto_ingredientes(
     id serial primary key,
     fk_produto_id int,
     fk_ingredientes_id int,
+    quantidade int,
 
     foreign key (fk_produto_id) references produtos(id),
     foreign key (fk_ingredientes_id) references ingredientes(id)
