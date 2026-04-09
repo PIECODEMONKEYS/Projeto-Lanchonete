@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 
+@SuppressWarnings("GrazieInspectionRunner")
 @Entity
 @Table(name = "cardapio")
-public class Cardapio {
+public class Produtos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,7 @@ public class Cardapio {
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal preco;
 
-    public Cardapio() {
+    public Produtos() {
     }
 
     public Long getId() {

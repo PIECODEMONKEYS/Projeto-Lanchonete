@@ -13,7 +13,7 @@
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.github.sistema_lanchonete.entity.Cardapio"/>
+        <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
 
 
     </session-factory>
