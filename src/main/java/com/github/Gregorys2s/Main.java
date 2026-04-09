@@ -1,17 +1,24 @@
 package com.github.Gregorys2s;
-//pacotes para comunicação com o bando de dados (JBDC)
-import java.sql.*;
-import javax.sql.*;
+
+import com.github.Gregorys2s.config.FlyWayConfig;
+import com.github.Gregorys2s.config.HibernateConfig;
+
 
 public class Main {
     public static void main(String[] args) {
-        try (Connection c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lanchonete", "postgres", "admin")) {
-        String db = c.getMetaData().getDatabaseProductName();
-        String ver = c.getMetaData().getDatabaseProductVersion();
 
-        System.out.println(db + "  " + ver + " Te da la bienvenida");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        // 1️⃣ Migra o banco
+        FlyWayConfig.migrate();
+
+        // 2️⃣ Executa regra de negócio
+        EstoqueBD estoque = new EstoqueBD();
+        estoque.cadastrarIngrediente("Presunto", 40);
+
+        // 3️⃣ Encerra recursos
+        HibernateConfig.shutdown();
+
+        System.out.println("Aplicação finalizada ✅");
+
+
     }
 }
