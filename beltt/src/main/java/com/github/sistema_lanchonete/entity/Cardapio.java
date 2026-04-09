@@ -1,5 +1,6 @@
 package com.github.sistema_lanchonete.entity;
 
+
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 
