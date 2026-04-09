@@ -1,4 +1,4 @@
-package com.github.sistema_lanchonete.config;
+package com.github.Gregorys2s.config;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
