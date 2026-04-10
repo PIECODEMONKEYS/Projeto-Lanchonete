@@ -11,7 +11,7 @@
 
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
+        <property name="hibernate.hbm2ddl.auto">none</property>
 
         <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
         <mapping class="com.github.sistema_lanchonete.entity.IngredienteEntity"/>
