@@ -4,6 +4,7 @@ package com.github.sistema_lanchonete;
 import com.github.sistema_lanchonete.config.CustomizerFactory;
 import com.github.sistema_lanchonete.config.FlyWayConfig;
 import com.github.sistema_lanchonete.config.HibernateConfig;
+import com.github.sistema_lanchonete.repositories.EstoqueBD;
 import jakarta.persistence.EntityManager;
 
 public class Main {

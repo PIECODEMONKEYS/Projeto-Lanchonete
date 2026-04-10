@@ -1,5 +1,6 @@
-package com.github.sistema_lanchonete;
+package com.github.sistema_lanchonete.repositories;
 
+//essa classe sinceramente nao tenho ideia de onde por, por isso coloque em repository
 
 import com.github.sistema_lanchonete.config.HibernateConfig;
 import com.github.sistema_lanchonete.entity.IngredienteEntity;
