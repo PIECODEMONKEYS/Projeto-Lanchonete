@@ -12,24 +12,20 @@ public class Main {
     @SuppressWarnings("GrazieInspectionRunner")
     public static void main(String[] args) {
         EntityManager em = CustomizerFactory.getEntityManager();
-        //vou deletar essa main basicametnet
-        ProdutosRepository produtosRepository = new ProdutosRepository(em);
 
-        Produtos produtos = new Produtos();
+        // 1️⃣ Migra o banco
+        FlyWayConfig.migrate();
 
-        //noinspection GrazieInspectionRunner
-        produtos.setNome("x-bagunca");
-        produtos.setPreco(BigDecimal.valueOf(30.00));
-        produtosRepository.create(produtos);
+        // 2️⃣ Executa regra de negócio
+        EstoqueBD estoque = new EstoqueBD();
+        estoque.cadastrarIngrediente("Presunto", 40);
 
-        var p2 = produtosRepository.findById(1L);
-        System.out.println(p2);
+        // 3️⃣ Encerra recursos
+        HibernateConfig.shutdown();
 
-        produtosRepository.findAll().stream().forEach(System.out::println);
+        System.out.println("Aplicação finalizada ✅");
 
-       /* var p3 = cardapioRepository.findById(1L);
-        cardapio.setNome("x-bagun");
-    */
+
         em.close();
         CustomizerFactory.fechar();
     }
