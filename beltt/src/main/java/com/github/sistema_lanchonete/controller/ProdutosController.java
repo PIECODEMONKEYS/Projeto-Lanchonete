@@ -105,7 +105,7 @@ public class ProdutosController {
             System.out.println("Erro critico na conexao com o banco de dados: " + e.getMessage());
         } catch (RuntimeException e)
         {
-            System.out.println("Erro inesperado ao remover item: ", e);
+            System.out.println("Erro inesperado ao remover item: " + e);
         }
     }
 }

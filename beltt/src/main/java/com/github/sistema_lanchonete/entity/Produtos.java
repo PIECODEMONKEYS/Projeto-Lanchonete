@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 @SuppressWarnings("GrazieInspectionRunner")
 @Entity
-@Table(name = "cardapio")
+@Table(name = "produtos")
 public class Produtos {
 
     @Id

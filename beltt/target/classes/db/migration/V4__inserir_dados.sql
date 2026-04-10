@@ -1,17 +1,17 @@
 -- 1. Inserindo os Ingredientes no estoque
 INSERT INTO ingredientes (nome, estoque) VALUES
-                                             ('Pão de Hambúrguer', 100),   -- ID 1
-                                             ('Hambúrguer 150g', 150),     -- ID 2
-                                             ('Queijo Cheddar', 200),      -- ID 3
-                                             ('Bacon em Fatias', 80),      -- ID 4
-                                             ('Alface', 50),               -- ID 5
-                                             ('Tomate', 50);               -- ID 6
+    ('Pão de Hambúrguer', 100),   -- ID 1
+    ('Hambúrguer 150g', 150),     -- ID 2
+    ('Queijo Cheddar', 200),      -- ID 3
+    ('Bacon em Fatias', 80),      -- ID 4
+    ('Alface', 50),               -- ID 5
+    ('Tomate', 50);               -- ID 6
 
 -- 2. Inserindo os Produtos (Lanches) no cardápio
 INSERT INTO produtos (nome, preco) VALUES
-                                       ('X-Burguer Clássico', 22.50), -- ID 1
-                                       ('X-Bacon Monstro', 28.90),    -- ID 2
-                                       ('X-Salada Leve', 24.00);      -- ID 3
+    ('X-Burguer Clássico', 22.50), -- ID 1
+    ('X-Bacon Monstro', 28.90),    -- ID 2
+    ('X-Salada Leve', 24.00);      -- ID 3
 
 -- 3. Ligando Produtos e Ingredientes (Criando as Receitas)
 INSERT INTO produto_ingredientes (fk_produto_id, fk_ingredientes_id, quantidade) VALUES

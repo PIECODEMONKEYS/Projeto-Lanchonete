@@ -11,10 +11,10 @@
 
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">none</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
-        <mapping class="com.github.sistema_lanchonete.entity.IngredienteEntity"/>
+        <mapping class="com.github.Gregorys2s.entity.IngredienteEntity"/>
+
 
     </session-factory>
 </hibernate-configuration>
