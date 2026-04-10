@@ -12,7 +12,7 @@ public class Main {
 
         // 2️⃣ Executa regra de negócio
         EstoqueBD estoque = new EstoqueBD();
-        estoque.cadastrarIngrediente("Presunto", 40);
+        //estoque.cadastrarIngrediente("Presunto", 40);
 
         // 3️⃣ Encerra recursos
         HibernateConfig.shutdown();
