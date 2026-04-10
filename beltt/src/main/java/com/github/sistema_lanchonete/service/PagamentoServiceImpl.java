@@ -1,6 +1,6 @@
-package com.github.codemonkeys.service;
+package com.github.sistema_lanchonete.service;
 
-import com.github.codemonkeys.DTO.PagamentoDTO;
+import com.github.sistema_lanchonete.DTO.PagamentoDTO;
 
 public class PagamentoServiceImpl implements PagamentoService{
     @Override

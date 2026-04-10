@@ -4,7 +4,7 @@ package com.github.sistema_lanchonete;
 import com.github.sistema_lanchonete.config.CustomizerFactory;
 import com.github.sistema_lanchonete.config.FlyWayConfig;
 import com.github.sistema_lanchonete.config.HibernateConfig;
-import com.github.sistema_lanchonete.repositories.EstoqueBD;
+import com.github.sistema_lanchonete.repositories.CadastrarIngredientes;
 import jakarta.persistence.EntityManager;
 
 public class Main {
@@ -16,8 +16,8 @@ public class Main {
         FlyWayConfig.migrate();
 
         // 2️⃣ Executa regra de negócio
-        EstoqueBD estoque = new EstoqueBD();
-        estoque.cadastrarIngrediente("Presunto", 40);
+        CadastrarIngredientes estoque = new CadastrarIngredientes();
+        estoque.cadastrar("Presunto", 40);
 
         // 3️⃣ Encerra recursos
         HibernateConfig.shutdown();
