@@ -5,6 +5,9 @@ import com.github.sistema_lanchonete.config.CustomizerFactory;
 import com.github.sistema_lanchonete.config.FlyWayConfig;
 import com.github.sistema_lanchonete.config.HibernateConfig;
 import com.github.sistema_lanchonete.repositories.CadastrarIngredientes;
+import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.repositories.IngredienteRepository;
+import com.github.sistema_lanchonete.service.EstoqueService;
 import jakarta.persistence.EntityManager;
 
 public class Main {
