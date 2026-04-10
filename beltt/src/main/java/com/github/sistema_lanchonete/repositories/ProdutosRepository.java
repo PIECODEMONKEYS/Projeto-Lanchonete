@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.repositories;
 
 import com.github.sistema_lanchonete.entity.Produtos;
-import com.github.sistema_lanchonete.exceptions.PersistenciaRepositoryException;
+import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class ProdutosRepository {
                 em.getTransaction().rollback();
             }
             //noinspection GrazieInspectionRunner
-            throw new PersistenciaRepositoryException("Erro ao tentar salvar o item " + produtos.getNome(), e);
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + produtos.getNome(), e);
         }
     }
 
@@ -42,7 +42,7 @@ public class ProdutosRepository {
                 em.getTransaction().rollback();
             }
             //noinspection GrazieInspectionRunner
-            throw new PersistenciaRepositoryException("Erro ao tentar atualizar o item " + produtos.getNome(), e);
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar atualizar o item " + produtos.getNome(), e);
         }
     }
 
@@ -57,7 +57,7 @@ public class ProdutosRepository {
                 em.getTransaction().rollback();
             }
             //noinspection GrazieInspectionRunner
-            throw new PersistenciaRepositoryException("Erro ao tentar deletar o item " + produtos.getNome(), e);
+            throw new PersistenciaProdutoRepositoryException("Erro ao tentar deletar o item " + produtos.getNome(), e);
         }
     }
     public List<Produtos> findAll() {

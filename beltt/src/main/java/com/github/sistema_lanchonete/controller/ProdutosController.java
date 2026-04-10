@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.entity.Produtos;
-import com.github.sistema_lanchonete.exceptions.PersistenciaRepositoryException;
+import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
 import com.github.sistema_lanchonete.exceptions.RegraNegocioException;
 import com.github.sistema_lanchonete.repositories.ProdutosRepository;
 import jakarta.persistence.EntityManager;
@@ -38,7 +38,7 @@ public class ProdutosController {
             System.out.println("Produto criado com sucesso");
         } catch (RegraNegocioException e) {
             throw new RegraNegocioException("Erro no envio de valores");
-        } catch (PersistenciaRepositoryException e) {
+        } catch (PersistenciaProdutoRepositoryException e) {
             System.out.println("Erro ao enviar dados: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Erro inesperado no sistema" + e);
@@ -69,7 +69,7 @@ public class ProdutosController {
             System.out.println("Produto criado com sucesso");
         } catch (RegraNegocioException e) {
             throw new RegraNegocioException("Erro no envio de valores");
-        } catch (PersistenciaRepositoryException e) {
+        } catch (PersistenciaProdutoRepositoryException e) {
             System.out.println("Erro ao enviar dados: " + e.getMessage());
         } catch (Exception e) {
             throw new RuntimeException("Erro inesperado no sistema" + e);
@@ -100,7 +100,7 @@ public class ProdutosController {
         } catch(RegraNegocioException e)
         {
             System.out.println("Aviso: " + e.getMessage());
-        } catch (PersistenciaRepositoryException e)
+        } catch (PersistenciaProdutoRepositoryException e)
         {
             System.out.println("Erro critico na conexao com o banco de dados: " + e.getMessage());
         } catch (RuntimeException e)
