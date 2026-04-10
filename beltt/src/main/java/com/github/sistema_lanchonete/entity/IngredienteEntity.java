@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.entity;
+package com.github.sistema_lanchonete.entity;
 
 import jakarta.persistence.*;
 @Entity

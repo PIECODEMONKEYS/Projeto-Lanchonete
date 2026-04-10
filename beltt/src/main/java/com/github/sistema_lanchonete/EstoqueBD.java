@@ -1,7 +1,8 @@
-package com.github.Gregorys2s;
+package com.github.sistema_lanchonete;
 
-import com.github.Gregorys2s.config.HibernateConfig;
-import com.github.Gregorys2s.entity.IngredienteEntity;
+
+import com.github.sistema_lanchonete.config.HibernateConfig;
+import com.github.sistema_lanchonete.entity.IngredienteEntity;
 import org.hibernate.Session;
 
 

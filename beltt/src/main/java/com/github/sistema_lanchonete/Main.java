@@ -2,11 +2,9 @@ package com.github.sistema_lanchonete;
 
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
-import com.github.sistema_lanchonete.entity.Produtos;
-import com.github.sistema_lanchonete.repositories.ProdutosRepository;
+import com.github.sistema_lanchonete.config.FlyWayConfig;
+import com.github.sistema_lanchonete.config.HibernateConfig;
 import jakarta.persistence.EntityManager;
-
-import java.math.BigDecimal;
 
 public class Main {
     @SuppressWarnings("GrazieInspectionRunner")
