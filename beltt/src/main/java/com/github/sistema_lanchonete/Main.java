@@ -2,32 +2,29 @@ package com.github.sistema_lanchonete;
 
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
-import com.github.sistema_lanchonete.entity.Cardapio;
-import com.github.sistema_lanchonete.repositories.CardapioRepository;
+import com.github.sistema_lanchonete.config.FlyWayConfig;
+import com.github.sistema_lanchonete.config.HibernateConfig;
+import com.github.sistema_lanchonete.repositories.EstoqueBD;
 import jakarta.persistence.EntityManager;
 
-import java.math.BigDecimal;
-
 public class Main {
+    @SuppressWarnings("GrazieInspectionRunner")
     public static void main(String[] args) {
         EntityManager em = CustomizerFactory.getEntityManager();
 
-        CardapioRepository cardapioRepository = new CardapioRepository(em);
+        // 1️⃣ Migra o banco
+        FlyWayConfig.migrate();
 
-        Cardapio cardapio = new Cardapio();
+        // 2️⃣ Executa regra de negócio
+        EstoqueBD estoque = new EstoqueBD();
+        estoque.cadastrarIngrediente("Presunto", 40);
 
-        cardapio.setNome("x-bagunca");
-        cardapio.setPreco(BigDecimal.valueOf(30.00));
-        cardapioRepository.create(cardapio);
+        // 3️⃣ Encerra recursos
+        HibernateConfig.shutdown();
 
-        var p2 = cardapioRepository.findById(1L);
-        System.out.println(p2);
+        System.out.println("Aplicação finalizada ✅");
 
-        cardapioRepository.findAll().stream().forEach(System.out::println);
 
-       /* var p3 = cardapioRepository.findById(1L);
-        cardapio.setNome("x-bagun");
-    */
         em.close();
         CustomizerFactory.fechar();
     }

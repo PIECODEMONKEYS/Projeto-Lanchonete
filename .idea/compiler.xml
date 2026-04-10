@@ -8,10 +8,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="beltt" />
         <module name="untitled" />
-        <!--greg
-        <module name="Main" />
-        -->
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Projeto-Lanchonete" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

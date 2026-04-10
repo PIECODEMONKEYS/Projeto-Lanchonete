@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManagerFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 //era pra ser entity manager mas o intelij marcou erro dai pedi pro hemini dar outro nome(codgio do prof)
+@SuppressWarnings("GrazieInspectionRunner")
 public class CustomizerFactory {
 
     private static final EntityManagerFactory emf;

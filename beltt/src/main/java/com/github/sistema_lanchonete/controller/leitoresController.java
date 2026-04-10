@@ -1,11 +1,12 @@
 package com.github.sistema_lanchonete.controller;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class leitoresController {
     private Scanner sc;
 
-    public Integer leitorInteger(Scanner sc)
+    public static Integer leitorInteger(Scanner sc)
     {
         while(true){
             try {
@@ -15,11 +16,11 @@ public class leitoresController {
             }
         }
     }
-    public double lerDouble(Scanner sc){
+    public static double lerDouble(Scanner sc){
         while (true){
             try {
                 return Double.parseDouble(sc.nextLine());
-            }catch (NumberFormatException e){
+            }catch (InputMismatchException e){
                 System.out.println("Digite algum preço ");
             }
         }

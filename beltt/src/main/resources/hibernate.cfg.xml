@@ -5,16 +5,16 @@
 <hibernate-configuration>
     <session-factory>
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/lanche_beltt</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/Lanchonete</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">Momo.021121</property>
+        <property name="hibernate.connection.password">admin</property>
 
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="com.github.sistema_lanchonete.entity.Cardapio"/>
-
+        <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
+        <mapping class="com.github.sistema_lanchonete.entity.IngredienteEntity"/>
 
     </session-factory>
 </hibernate-configuration>

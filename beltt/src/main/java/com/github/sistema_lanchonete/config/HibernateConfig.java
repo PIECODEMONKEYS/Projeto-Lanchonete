@@ -1,4 +1,4 @@
-package com.github.Gregorys2s.config;
+package com.github.sistema_lanchonete.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
