@@ -10,5 +10,8 @@
         <module name="Main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="beltt" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>
