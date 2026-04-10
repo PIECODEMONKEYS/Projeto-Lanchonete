@@ -7,9 +7,9 @@ import com.github.sistema_lanchonete.entity.IngredienteEntity;
 import org.hibernate.Session;
 
 
-public class EstoqueBD {
+public class CadastrarIngredientes {
 
-    public void cadastrarIngrediente(String nome, int estoque) {
+    public void cadastrar(String nome, int estoque) {
 
         // 1️⃣ Abre sessão com o banco
         Session session = HibernateConfig.getSessionFactory().openSession();

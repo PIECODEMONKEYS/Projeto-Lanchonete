@@ -2,6 +2,7 @@ package com.github.sistema_lanchonete.controller;
 
 
 import com.github.sistema_lanchonete.DTO.PagamentoDTO;
+import com.github.sistema_lanchonete.exceptions.PagamentoIncorretoException;
 import com.github.sistema_lanchonete.service.PagamentoService;
 
 public class PagamentoController {
@@ -12,6 +13,12 @@ public class PagamentoController {
     }
 
     public double realizarPagamento(PagamentoDTO pagamentoDTO){
-        return pagamentoService.processarPagamento(pagamentoDTO);
+        try{
+            return pagamentoService.processarPagamento(pagamentoDTO);
+        } catch (PagamentoIncorretoException e)
+        {
+            System.out.println("Operacao cancelada: " + e.getMessage());
+            return 0.0;
+        }
     }
 }
