@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Table (name = "pedidos")
 public class Pedidos {
     @Id
-    @GeneratedValue(strategy =  = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =   GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "data_hora", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
