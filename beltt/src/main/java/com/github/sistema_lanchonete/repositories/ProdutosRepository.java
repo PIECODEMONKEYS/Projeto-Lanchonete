@@ -33,15 +33,32 @@ public class ProdutosRepository {
 
 
     public void update(Produtos produtos) {
-        em.getTransaction().begin();
-        em.persist(produtos);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            em.persist(produtos);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaRepositoryException("Erro ao tentar atualizar o item " + produtos.getNome(), e);
+        }
     }
 
     public void delete(Produtos produtos) {
-        em.getTransaction().begin();
-        em.remove(em.contains(produtos) ? produtos : em.merge(produtos));
-        em.getTransaction().commit();
+        try{
+            em.getTransaction().begin();
+            em.remove(em.contains(produtos) ? produtos : em.merge(produtos));
+            em.getTransaction().commit();
+        }catch(Exception e){
+            if(em.getTransaction().isActive())
+            {
+                em.getTransaction().rollback();
+            }
+            //noinspection GrazieInspectionRunner
+            throw new PersistenciaRepositoryException("Erro ao tentar deletar o item " + produtos.getNome(), e);
+        }
     }
     public List<Produtos> findAll() {
         return em.createQuery("select c from cardapio c", Produtos.class).getResultList();
