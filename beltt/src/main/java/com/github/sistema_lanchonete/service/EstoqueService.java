@@ -1,4 +1,4 @@
-package com.github.sistema_lanchonete.services;
+package com.github.sistema_lanchonete.service;
 
 import com.github.sistema_lanchonete.entity.IngredienteEntity;
 import com.github.sistema_lanchonete.repositories.IngredienteRepository;
