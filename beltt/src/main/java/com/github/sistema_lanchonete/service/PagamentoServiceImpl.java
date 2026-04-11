@@ -10,7 +10,7 @@ public class PagamentoServiceImpl implements PagamentoService {
         if (pagamentoDTO == null){
             throw new PagamentoIncorretoException("PagamentoDTO nao pode ser nulo");
         }
-        double valor = pagamentoDTO.getValor();
+        double valor = pagamentoDTO.getValorOriginal();
         String metodo = pagamentoDTO.getMetodoPagamento();
 
         if (valor <= 0){
