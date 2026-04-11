@@ -16,7 +16,7 @@ public class Main {
         EntityManager em = CustomizerFactory.getEntityManager();
         ProdutosRepository produtosRepo = new ProdutosRepository(em);
 
-        // 3. Instanciação dos Controllers com suas dependências
+        // 3. Instanciação dos Controllers com a suas dependências
         CaixaController caixa = new CaixaController();
         MenuController menu = new MenuController();
         IngredienteController estoque = new IngredienteController();

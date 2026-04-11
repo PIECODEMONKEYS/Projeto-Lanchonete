@@ -14,8 +14,7 @@ public class PedidoEntity {
     @Column(name = "valor_total", nullable = false)
     private Double valorTotal;
 
-    // Adicionamos a precisão de timestamp para o PostgreSQL
-    @Column(name = "data_pedido", updatable = false)
+    @Column(name = "data_pedido")
     private LocalDateTime dataPedido = LocalDateTime.now();
 
     public PedidoEntity() {}
