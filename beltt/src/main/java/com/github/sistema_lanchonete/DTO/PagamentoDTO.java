@@ -3,19 +3,19 @@ package com.github.sistema_lanchonete.DTO;
 import java.math.BigDecimal;
 
 public class PagamentoDTO {
-    private double valorOriginal;
+    private BigDecimal valorOriginal;
     private String metodoPagamento;
 
     public PagamentoDTO(){
 
     }
 
-    public PagamentoDTO(double valor, String metodoPagamento){
+    public PagamentoDTO(BigDecimal valorOriginal, String metodoPagamento){
         this.valorOriginal = valorOriginal;
         this.metodoPagamento = metodoPagamento;
     }
 
-    public double getValorOriginal(){
+    public BigDecimal getValorOriginal(){
         return valorOriginal;
     }
 
@@ -23,7 +23,7 @@ public class PagamentoDTO {
         return metodoPagamento;
     }
 
-    public void setValorOriginal(double valorOriginal){
+    public void setValorOriginal(BigDecimal valorOriginal){
         this.valorOriginal = valorOriginal;
     }
 
