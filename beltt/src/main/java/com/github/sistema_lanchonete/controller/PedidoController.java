@@ -38,7 +38,16 @@ public class PedidoController {
                 .findFirst().orElse(null);
 
         if (prodSelecionado != null) {
+            // --- VALIDAÇÃO DE ESTOQUE (Sênior) ---
+            // Verifica se há ingredientes para processar o pedido
+            var ingredientes = estoqueRepo.buscarTodos();
+            if (ingredientes.isEmpty() || ingredientes.get(0).getEstoque() <= 0) {
+                System.out.println("❌ Erro: Ingredientes insuficientes no estoque! Venda cancelada.");
+                return;
+            }
+
             // 2. Atualiza o Caixa (Soma o valor)
+            // Agora o getPreco() já retorna double, sem necessidade de conversão manual
             caixa.registrarVenda(prodSelecionado.getPreco());
 
             // 3. Salva o Pedido no Banco
@@ -58,9 +67,10 @@ public class PedidoController {
     private void baixarEstoqueSimbolico() {
         var ingredientes = estoqueRepo.buscarTodos();
         if (!ingredientes.isEmpty()) {
-            var item = ingredientes.get(0); // Pega o primeiro ingrediente como teste
+            var item = ingredientes.get(0);
             if (item.getEstoque() > 0) {
                 item.setEstoque(item.getEstoque() - 1);
+                // O método salvar agora existe no repositório e usa merge
                 estoqueRepo.salvar(item);
                 System.out.println("📉 Estoque de " + item.getNome() + " reduzido em 1.");
             }

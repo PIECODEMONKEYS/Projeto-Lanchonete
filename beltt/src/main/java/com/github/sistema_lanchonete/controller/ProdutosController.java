@@ -1,12 +1,10 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.entity.Produtos;
-import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
-import com.github.sistema_lanchonete.exceptions.RegraNegocioException;
 import com.github.sistema_lanchonete.repositories.ProdutosRepository;
 import jakarta.persistence.EntityManager;
-
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProdutosController {
     private final ProdutosRepository repository;
@@ -15,80 +13,59 @@ public class ProdutosController {
         this.repository = repository;
     }
 
-    public void adicionarItem(EntityManager em, Produtos produtos) {
-        try {
-            // A mensagem agora é passada diretamente para o método do LeitoresController
-            String nome = LeitoresController.lerString("Digite o nome do produto: ");
-            if (nome == null || nome.isBlank()) {
-                throw new RegraNegocioException("Nome nao pode ser vazio");
-            }
-            produtos.setNome(nome);
+    public void exibirMenuProdutos() {
+        int op;
+        do {
+            System.out.println("\n🍔 --- GESTÃO DE CARDÁPIO ---");
+            System.out.println("1. Listar | 2. Novo | 3. Atualizar | 4. Remover | 5. Voltar");
+            op = LeitoresController.lerInteiro("Escolha uma opção: ");
 
-            double valor = LeitoresController.lerDouble("Digite o valor do produto: ");
-            if (valor <= 0) {
-                throw new RegraNegocioException("Valor não pode ser zero nem negativo");
+            switch (op) {
+                case 1 -> listarTodos();
+                case 2 -> adicionarItem(null, new Produtos());
+                case 3 -> {
+                    int id = LeitoresController.lerInteiro("ID do produto para atualizar: ");
+                    Produtos p = repository.findById(id);
+                    if (p != null) atualizarItem(null, p);
+                    else System.out.println("❌ Produto não encontrado.");
+                }
+                case 4 -> deletarItem();
             }
-            produtos.setPreco(BigDecimal.valueOf(valor));
-
-            this.repository.create(produtos);
-            System.out.println("Produto criado com sucesso!");
-        } catch (RegraNegocioException e) {
-            System.out.println("Erro de Negócio: " + e.getMessage());
-        } catch (PersistenciaProdutoRepositoryException e) {
-            System.out.println("Erro ao enviar dados: " + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Erro inesperado no sistema: " + e);
-        }
+        } while (op != 5);
     }
 
-    public void atualizarItem(EntityManager em, Produtos produtos) {
-        try {
-            String nome = LeitoresController.lerString("Digite o novo nome do produto: ");
-            if (nome == null || nome.isBlank()) {
-                throw new RegraNegocioException("Nome nao pode ser vazio");
-            }
-            produtos.setNome(nome);
+    private void listarTodos() {
+        var lista = repository.buscarTodos();
+        System.out.println("\n--- LISTA DE PRODUTOS ---");
+        lista.forEach(p -> System.out.printf("ID: %d | %-20s | R$ %.2f%n", p.getId(), p.getNome(), p.getPreco()));
+    }
 
-            double valor = LeitoresController.lerDouble("Digite o novo valor do produto: ");
-            if (valor <= 0) {
-                throw new RegraNegocioException("Valor não pode ser zero nem negativo");
-            }
-            produtos.setPreco(BigDecimal.valueOf(valor));
+    public void adicionarItem(EntityManager em, Produtos p) {
+        String nome = LeitoresController.lerString("Nome do produto: ");
+        double valor = LeitoresController.lerDouble("Preço: ");
+        p.setNome(nome);
+        p.setPreco(BigDecimal.valueOf(valor));
+        repository.salvar(p);
+        System.out.println("✅ Produto salvo!");
+    }
 
-            this.repository.update(produtos);
-            System.out.println("Produto atualizado com sucesso!");
-        } catch (RegraNegocioException e) {
-            System.out.println("Erro de Negócio: " + e.getMessage());
-        } catch (PersistenciaProdutoRepositoryException e) {
-            System.out.println("Erro ao atualizar dados: " + e.getMessage());
-        } catch (Exception e) {
-            throw new RuntimeException("Erro inesperado no sistema: " + e);
-        }
+    public void atualizarItem(EntityManager em, Produtos p) {
+        String nome = LeitoresController.lerString("Novo nome: ");
+        double valor = LeitoresController.lerDouble("Novo preço: ");
+        p.setNome(nome);
+        p.setPreco(BigDecimal.valueOf(valor));
+        repository.salvar(p);
+        System.out.println("✅ Produto atualizado!");
     }
 
     public void deletarItem() {
-        try {
-            // Corrigido de leitorInteger para lerInteiro conforme sua LeitoresController
-            Integer id = LeitoresController.lerInteiro("Digite o id do produto que deseja remover: ");
-
-            Produtos produto = this.repository.findById(id);
-            if (produto == null) {
-                throw new RegraNegocioException("Operação cancelada: ID inválido");
-            }
-
-            String confirmacao = LeitoresController.lerString("Deseja realmente deletar o item? Digite SIM para confirmar: ");
-            if (confirmacao.equalsIgnoreCase("SIM")) {
-                this.repository.delete(produto);
-                System.out.println("Item deletado com sucesso!");
-            } else {
-                System.out.println("Operação cancelada.");
-            }
-        } catch (RegraNegocioException e) {
-            System.out.println("Aviso: " + e.getMessage());
-        } catch (PersistenciaProdutoRepositoryException e) {
-            System.out.println("Erro crítico na conexão com o banco de dados: " + e.getMessage());
-        } catch (RuntimeException e) {
-            System.out.println("Erro inesperado ao remover item: " + e);
+        int id = LeitoresController.lerInteiro("ID para remover: ");
+        Produtos p = repository.findById(id);
+        if (p != null) {
+            repository.delete(p);
+            System.out.println("✅ Produto removido!");
+        } else {
+            System.out.println("❌ Não encontrado.");
         }
     }
 }
