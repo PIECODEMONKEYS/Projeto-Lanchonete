@@ -3,7 +3,6 @@ package com.github.sistema_lanchonete.controller;
 import java.util.Scanner;
 
 public class LeitoresController {
-    // Scanner centralizado como pedido no áudio
     private static final Scanner sc = new Scanner(System.in);
 
     public static int lerInteiro(String mensagem) {

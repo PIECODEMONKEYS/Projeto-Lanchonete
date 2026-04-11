@@ -24,7 +24,7 @@ public class PedidoController {
         System.out.println("\n📝 --- LANÇAR NOVO PEDIDO ---");
 
         // 1. Lista os produtos do cardápio
-        var produtos = produtoRepo.buscarTodos();
+        var produtos = produtoRepo.findAll();
         if (produtos.isEmpty()) {
             System.out.println("❌ Cadastre produtos no cardápio primeiro!");
             return;
@@ -39,11 +39,11 @@ public class PedidoController {
 
         if (prodSelecionado != null) {
             // 2. Atualiza o Caixa (Soma o valor)
-            caixa.registrarVenda(prodSelecionado.getPreco());
+            caixa.registrarVenda(prodSelecionado.getPreco().doubleValue());
 
             // 3. Salva o Pedido no Banco
             PedidoEntity pedido = new PedidoEntity();
-            pedido.setValorTotal(prodSelecionado.getPreco());
+            pedido.setValorTotal(prodSelecionado.getPreco().doubleValue());
             pedidoRepo.salvar(pedido);
 
             // 4. Baixa automática de 1 ingrediente (Simulação de estoque)
@@ -61,7 +61,7 @@ public class PedidoController {
             var item = ingredientes.get(0); // Pega o primeiro ingrediente como teste
             if (item.getEstoque() > 0) {
                 item.setEstoque(item.getEstoque() - 1);
-                estoqueRepo.salvar(item);
+                estoqueRepo.create(item);
                 System.out.println("📉 Estoque de " + item.getNome() + " reduzido em 1.");
             }
         }
