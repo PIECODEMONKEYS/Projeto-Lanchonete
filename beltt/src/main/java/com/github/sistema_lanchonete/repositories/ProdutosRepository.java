@@ -35,7 +35,7 @@ public class ProdutosRepository {
     public void update(Produtos produtos) {
         try {
             em.getTransaction().begin();
-            em.persist(produtos);
+            em.merge(produtos);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
@@ -61,11 +61,11 @@ public class ProdutosRepository {
         }
     }
     public List<Produtos> findAll() {
-        return em.createQuery("select c from cardapio c", Produtos.class).getResultList();
+        return em.createQuery("select c from Produtos c", Produtos.class).getResultList();
     }
 
     public List<Produtos> findByName(String name) {
-        return em.createQuery("select c from produtos c where c.nome = :name",
+        return em.createQuery("select c from Produtos c where c.nome = :name",
                         Produtos.class)
                 .setParameter("name", name)
                 .getResultList();

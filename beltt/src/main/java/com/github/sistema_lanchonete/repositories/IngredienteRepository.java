@@ -30,7 +30,7 @@ public class IngredienteRepository {
     public void atualizar(IngredienteEntity ingrediente) {
         try {
             em.getTransaction().begin();
-            em.persist(ingrediente);
+            em.merge(ingrediente);
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {

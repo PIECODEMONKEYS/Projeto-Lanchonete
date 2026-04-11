@@ -35,7 +35,7 @@ public class PedidosRepository {
                 em.getTransaction().rollback();
             }
 
-            throw new PersistencePedidosException("Erro na geração de produtos: " + pedidos.getId(), e)
+            throw new PersistencePedidosException("Erro na geração de produtos: " + pedidos.getId(), e);
         }
     }
 
@@ -51,7 +51,7 @@ public class PedidosRepository {
         LocalDateTime dataInicio = dataProcurada.atStartOfDay();
         LocalDateTime dataFim = dataProcurada.atTime(LocalTime.MAX);
 
-        return em.createQuery("select p from pedidos p where data_hora >= :dataInicio and data_hora <= :dataFim", Pedidos.class)
+        return em.createQuery("select p from pedidos p where p.data_hora >= :dataInicio and data_hora <= :dataFim", Pedidos.class)
                 .setParameter("dataInicio",dataInicio).setParameter("dataFim", dataFim)
                 .getResultList();
     }
