@@ -43,16 +43,9 @@ public class PedidosController {
     }
     public void procurarPorData(Scanner sc)
     {
-        System.out.println("--- Procura de Pedidos por Data ---");
-
-        System.out.print("Digite o ano (ex: 2026): ");
-        Integer ano = leitoresController.lerAno(sc);
-
-        System.out.print("Digite o mês (1-12): ");
-        Integer mes = leitoresController.lerMes(sc);
-
-        System.out.print("Digite o dia (1-31): ");
-        Integer dia = leitoresController.lerDia(sc);
+        Integer ano = LeitoresController.lerInteiro("Digite o ano (ex: 2026): ");
+        Integer mes = LeitoresController.lerInteiro("Digite o mês (1-12): ");
+        Integer dia = LeitoresController.lerInteiro("Digite o dia (1-31): ");
 
         try {
             List<Pedidos> pedidosEncontrados = repository.findByDay(ano, mes, dia);
