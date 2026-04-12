@@ -3,10 +3,8 @@ package com.github.sistema_lanchonete.controller;
 import java.util.Scanner;
 
 public class LeitoresController {
-    private static final Scanner sc = new Scanner(System.in);
 
-    public static int lerInteiro(String mensagem) {
-        System.out.print(mensagem);
+    public static int lerInteiro(Scanner sc) {
         while (true) {
             try {
                 return Integer.parseInt(sc.nextLine());
@@ -16,8 +14,7 @@ public class LeitoresController {
         }
     }
 
-    public static double lerDouble(String mensagem) {
-        System.out.print(mensagem);
+    public static double lerDouble(S) {
         while (true) {
             try {
                 return Double.parseDouble(sc.nextLine().replace(",", "."));
