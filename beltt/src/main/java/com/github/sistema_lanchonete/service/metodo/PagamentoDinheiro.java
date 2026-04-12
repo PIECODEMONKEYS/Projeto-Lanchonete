@@ -1,8 +1,12 @@
 package com.github.sistema_lanchonete.service.metodo;
 
-public class PagamentoDinheiro implements MetodoPagamento{
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class PagamentoDinheiro implements MetodoPagamentoStrategy {
+
     @Override
-    public double calcular(double valor) {
-        return valor;
+    public BigDecimal calcular(BigDecimal valor) {
+        return valor.setScale(2, RoundingMode.HALF_UP);
     }
 }

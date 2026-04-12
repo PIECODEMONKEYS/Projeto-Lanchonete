@@ -17,8 +17,8 @@ public class Pedidos {
     @Column(name = "data_hora", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime dataHora;
 
-    @Column(precision = 10, scale = 2, nullable = true)
-    private BigDecimal preco;
+    @Column(name = "valor_total", precision = 10, scale = 2, nullable = false)
+    private BigDecimal valorTotal;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
     /*@JoinTable(
@@ -46,12 +46,12 @@ public class Pedidos {
         this.dataHora = dataHora;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public BigDecimal getValorTotal() {
+        return valorTotal;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public List<ItemPedido> getItens() {

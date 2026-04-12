@@ -16,6 +16,8 @@
         <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
         <mapping class="com.github.sistema_lanchonete.entity.IngredienteEntity"/>
         <mapping class="com.github.sistema_lanchonete.entity.Pedidos"/>
+        <mapping class="com.github.sistema_lanchonete.entity.ItemPedido"/>
+        <mapping class="com.github.sistema_lanchonete.entity.PagamentoEntity"/>
 
         <mapping class="com.github.sistema_lanchonete.entity.PedidoEntity"/>
 

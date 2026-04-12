@@ -34,7 +34,7 @@ public class PedidosController {
         }
 
         try {
-            service.criarPedido(itensCarrinho);
+            Pedidos pedidoCriado = service.criarPedido(itensCarrinho);
             itensCarrinho.clear(); // Limpa o carrinho após o sucesso
             System.out.println("Pedido realizado com sucesso!");
         } catch (Exception e) {
@@ -57,7 +57,7 @@ public class PedidosController {
                 for (Pedidos p : pedidosEncontrados) {
                     System.out.println("ID: " + p.getId() +
                             " | Hora: " + p.getDataHora().toLocalTime() +
-                            " | Total: R$ " + p.getPreco());
+                            " | Total: R$ " + p.getValorTotal());
                 }
             }
         } catch (Exception e) {
