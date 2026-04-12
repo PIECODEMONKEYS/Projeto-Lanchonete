@@ -41,7 +41,7 @@ public class PedidosRepository {
 
     public List<Pedidos> findAll()
     {
-        return em.createQuery("select p from pedidos p", Pedidos.class).getResultList();
+        return em.createQuery("select p from Pedidos p", Pedidos.class).getResultList();
     }
 
     public List<Pedidos> findByDay(Integer ano, Integer mes, Integer dia)
@@ -51,7 +51,7 @@ public class PedidosRepository {
         LocalDateTime dataInicio = dataProcurada.atStartOfDay();
         LocalDateTime dataFim = dataProcurada.atTime(LocalTime.MAX);
 
-        return em.createQuery("select p from pedidos p where p.data_hora >= :dataInicio and data_hora <= :dataFim", Pedidos.class)
+        return em.createQuery("select p from Pedidos p where p.data_hora >= :dataInicio and data_hora <= :dataFim", Pedidos.class)
                 .setParameter("dataInicio",dataInicio).setParameter("dataFim", dataFim)
                 .getResultList();
     }

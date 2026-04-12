@@ -1,33 +1,30 @@
 package com.github.sistema_lanchonete.DTO;
 
-import java.math.BigDecimal;
-
 public class PagamentoDTO {
-    private BigDecimal valorOriginal;
+    private Long pedidoId;
     private String metodoPagamento;
 
-    public PagamentoDTO(){
-
+    public PagamentoDTO() {
     }
 
-    public PagamentoDTO(BigDecimal valorOriginal, String metodoPagamento){
-        this.valorOriginal = valorOriginal;
+    public PagamentoDTO(Long pedidoId, String metodoPagamento) {
+        this.pedidoId = pedidoId;
         this.metodoPagamento = metodoPagamento;
     }
 
-    public BigDecimal getValorOriginal(){
-        return valorOriginal;
+    public Long getPedidoId() {
+        return pedidoId;
     }
 
-    public String getMetodoPagamento(){
+    public void setPedidoId(Long pedidoId) {
+        this.pedidoId = pedidoId;
+    }
+
+    public String getMetodoPagamento() {
         return metodoPagamento;
     }
 
-    public void setValorOriginal(BigDecimal valorOriginal){
-        this.valorOriginal = valorOriginal;
-    }
-
-    public void setMetodoPagamento(String metodoPagamento){
+    public void setMetodoPagamento(String metodoPagamento) {
         this.metodoPagamento = metodoPagamento;
     }
 }

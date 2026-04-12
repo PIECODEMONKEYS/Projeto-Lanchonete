@@ -7,6 +7,8 @@ import com.github.sistema_lanchonete.exceptions.CriacaoPedidoException;
 import com.github.sistema_lanchonete.repositories.PedidosRepository;
 import jakarta.persistence.EntityManager;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -17,12 +19,14 @@ public class PedidosService {
         this.em = em;
     }
 
-    public void criarPedido(Map<Long, Integer> itensMap) {
+    public Pedidos criarPedido(Map<Long, Integer> itensMap) {
         try {
             em.getTransaction().begin();
 
             Pedidos novoPedido = new Pedidos();
             novoPedido.setDataHora(LocalDateTime.now());
+
+            BigDecimal total = BigDecimal.ZERO;
 
             for (Map.Entry<Long, Integer> entry : itensMap.entrySet()) {
                 Long produtoId = entry.getKey();
@@ -38,11 +42,19 @@ public class PedidosService {
 
                     // Adiciona na lista do pedido (o Cascadetypoe vai salvar o item)
                     novoPedido.getItens().add(item);
+
+                    BigDecimal subtotal = produto.getPreco()
+                            .multiply(BigDecimal.valueOf(quantidade));
+                    total = total.add(subtotal);
                 }
             }
 
+            novoPedido.setValorTotal(total.setScale(2, RoundingMode.HALF_UP));
+
             em.persist(novoPedido);
             em.getTransaction().commit();
+
+            return novoPedido;
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {

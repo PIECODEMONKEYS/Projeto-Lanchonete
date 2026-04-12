@@ -36,6 +36,18 @@ public class PagamentoEntity {
     @Column(name = "data_pagamento")
     private LocalDateTime dataPagamento;
 
+    @OneToOne
+    @JoinColumn(name = "fk_pedido_id", nullable = false, unique = true)
+    private Pedidos pedido;
+
+    public Pedidos getPedido(){
+        return pedido;
+    }
+
+    public void setPedido(Pedidos pedido){
+        this.pedido = pedido;
+    }
+
     public PagamentoEntity() {
     }
 
