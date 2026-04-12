@@ -4,8 +4,6 @@ import com.github.sistema_lanchonete.entity.IngredienteEntity;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 
-
-
 public class IngredienteRepository {
 
     private final EntityManager entityManager;
@@ -19,12 +17,16 @@ public class IngredienteRepository {
     public List<IngredienteEntity> findAll() {
         return entityManager.createQuery("from IngredienteEntity", IngredienteEntity.class).getResultList();
     }
+    public List<IngredienteEntity> buscarTodos() {
+        return findAll();
+    }
 
-    // MÉTODO QUE RESOLVE O ERRO: create
-    public void create(IngredienteEntity ingrediente) {
+    // MÉTODO NOVO: Adicionado para resolver o erro 'cannot find symbol method salvar'
+    public void salvar(IngredienteEntity ingrediente) {
         try {
             entityManager.getTransaction().begin();
-            entityManager.persist(ingrediente);
+            // O merge é mais seguro pois lida com objetos novos e atualizações
+            entityManager.merge(ingrediente);
             entityManager.getTransaction().commit();
         } catch (Exception e) {
             if (entityManager.getTransaction().isActive()) {
@@ -34,19 +36,8 @@ public class IngredienteRepository {
         }
     }
 
-    public List<IngredienteEntity> buscarTodos() {
-        return entityManager.createQuery("FROM IngredienteEntity", IngredienteEntity.class).getResultList();
+    // Mantém compatibilidade com quem usa o método create
+    public void create(IngredienteEntity ingrediente) {
+        salvar(ingrediente);
     }
-
-    public List<IngredienteEntity> findByName(String name) {
-        return entityManager.createQuery("select i from ingredientes i where i.nome = :name",
-                        IngredienteEntity.class)
-                .setParameter("name", name)
-                .getResultList();
-    }
-
-    public IngredienteEntity findById(long id) {
-        return entityManager.find(IngredienteEntity.class, id);
-    }
-
 }
