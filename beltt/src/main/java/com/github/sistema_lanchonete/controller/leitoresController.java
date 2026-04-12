@@ -6,7 +6,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class leitoresController {
-    private Scanner sc;
 
     public static Integer leitorInteger(Scanner sc)
     {
