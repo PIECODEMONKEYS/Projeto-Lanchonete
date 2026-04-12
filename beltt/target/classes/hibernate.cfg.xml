@@ -16,5 +16,7 @@
         <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
         <mapping class="com.github.sistema_lanchonete.entity.IngredienteEntity"/>
 
+        <mapping class="com.github.sistema_lanchonete.entity.PedidoEntity"/>
+
     </session-factory>
 </hibernate-configuration>

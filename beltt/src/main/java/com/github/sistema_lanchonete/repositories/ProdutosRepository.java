@@ -1,73 +1,51 @@
 package com.github.sistema_lanchonete.repositories;
 
 import com.github.sistema_lanchonete.entity.Produtos;
-import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
 import jakarta.persistence.EntityManager;
-
 import java.util.List;
 
 public class ProdutosRepository {
-    private EntityManager em;
+    private final EntityManager em;
 
     public ProdutosRepository(EntityManager em) {
         this.em = em;
     }
 
-    public Produtos findById(long id) {
-        return em.find(Produtos.class, id);
+    // RESOLVE O ERRO: findById(id)
+    public Produtos findById(Integer id) {
+        // O find precisa do ID no formato correto (Long ou Integer conforme sua Entity)
+        return em.find(Produtos.class, Long.valueOf(id));
     }
 
-    public void create(Produtos produtos) {
+    // RESOLVE O ERRO: delete(produto)
+    public void delete(Produtos produto) {
         try {
             em.getTransaction().begin();
-            em.persist(produtos);
+            // Se o objeto estiver "detached" do Hibernate, fazemos o merge antes de remover
+            em.remove(em.contains(produto) ? produto : em.merge(produto));
             em.getTransaction().commit();
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            //noinspection GrazieInspectionRunner
-            throw new PersistenciaProdutoRepositoryException("Erro ao tentar salvar o item " + produtos.getNome(), e);
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw e;
         }
     }
 
-
-    public void update(Produtos produtos) {
+    // Mantendo os métodos que já corrigimos antes para não quebrar o resto
+    public void salvar(Produtos produto) {
         try {
             em.getTransaction().begin();
-            em.persist(produtos);
+            em.merge(produto);
             em.getTransaction().commit();
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            //noinspection GrazieInspectionRunner
-            throw new PersistenciaProdutoRepositoryException("Erro ao tentar atualizar o item " + produtos.getNome(), e);
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw e;
         }
     }
 
-    public void delete(Produtos produtos) {
-        try{
-            em.getTransaction().begin();
-            em.remove(em.contains(produtos) ? produtos : em.merge(produtos));
-            em.getTransaction().commit();
-        }catch(Exception e){
-            if(em.getTransaction().isActive())
-            {
-                em.getTransaction().rollback();
-            }
-            //noinspection GrazieInspectionRunner
-            throw new PersistenciaProdutoRepositoryException("Erro ao tentar deletar o item " + produtos.getNome(), e);
-        }
-    }
-    public List<Produtos> findAll() {
-        return em.createQuery("select c from cardapio c", Produtos.class).getResultList();
-    }
+    public void create(Produtos produto) { salvar(produto); }
+    public void update(Produtos produto) { salvar(produto); }
 
-    public List<Produtos> findByName(String name) {
-        return em.createQuery("select c from produtos c where c.nome = :name",
-                        Produtos.class)
-                .setParameter("name", name)
-                .getResultList();
+    public List<Produtos> buscarTodos() {
+        return em.createQuery("FROM Produtos", Produtos.class).getResultList();
     }
 }

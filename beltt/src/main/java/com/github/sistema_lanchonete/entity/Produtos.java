@@ -39,8 +39,9 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public double getPreco() {
+        // Converte o BigDecimal para double para ser compatível com o retorno do método
+        return preco != null ? preco.doubleValue() : 0.0;
     }
 
     public void setPreco(BigDecimal preco) {
