@@ -78,7 +78,7 @@ public class IngredienteController {
                 break;
                 case 3:
                     try{
-                        System.out.println("Digite o nome exato do ingredient");
+                        System.out.println("Digite o nome exato do ingrediente");
                         String nome = LeitoresController.lerString(sc);
                         Ingrediente remove = repository.acharPeloNome(nome);
                         repository.remover(remove);
