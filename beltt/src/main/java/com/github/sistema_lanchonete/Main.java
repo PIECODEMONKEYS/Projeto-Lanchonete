@@ -5,6 +5,11 @@ import com.github.sistema_lanchonete.config.FlyWayConfig;
 import com.github.sistema_lanchonete.config.HibernateConfig;
 import com.github.sistema_lanchonete.controller.*;
 import com.github.sistema_lanchonete.repositories.ProdutosRepository;
+import com.github.sistema_lanchonete.repositories.PagamentoRepository;
+import com.github.sistema_lanchonete.repositories.PedidosRepository;
+import com.github.sistema_lanchonete.service.PagamentoService;
+import com.github.sistema_lanchonete.service.PagamentoServiceImpl;
+import com.github.sistema_lanchonete.service.PedidosService;
 import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
@@ -25,12 +30,21 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         // RESOLVE O ERRO DO CONSTRUTOR: Passando o repositório para o cardápio
         ProdutosController cardapio = new ProdutosController(produtosRepo);
+        PedidosRepository pedidosRepository = new PedidosRepository(em);
+        PedidosService pedidosService = new PedidosService(em);
 
-        // Arrumar isso com urgencia
-        //PedidoController pedidos = new PedidoController(caixa);
+        PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
+        PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository, pedidosRepository);
+        PagamentoController pagamentoController = new PagamentoController(pagamentoService);
+
+        PedidosController pedidosController = new PedidosController(
+                pedidosRepository,
+                pedidosService,
+                pagamentoController
+        );
 
         try {
-            caixa.abrirCaixa(sc);
+            caixa.abrirCaixa();
 
             boolean rodando = true;
             while (rodando && caixa.isCaixaAberto()) {
@@ -52,8 +66,14 @@ public class Main {
                     }
                     case 3 -> {
                         System.out.println("\n\tINICIANDO PEDIDO");
-                        //ARRUMAR ESTA BOSTA
-                        //pedidos.novoPedido();
+                        System.out.println("Digite o id do produto: ");
+                        long produtoId = LeitoresController.lerInteiro(sc);
+
+                        System.out.println("didgite a quantidade: ");
+                        int quantidade = LeitoresController.lerInteiro(sc);
+
+                        pedidosController.adicionarItem(produtoId, quantidade);
+                        pedidosController.finalizarPedido(sc);
                     }
                     case 4 -> {
                         caixa.fecharCaixa();
