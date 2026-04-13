@@ -2,7 +2,6 @@ package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
 import com.github.sistema_lanchonete.entity.Ingrediente;
-import com.github.sistema_lanchonete.exceptions.DataNegocioException;
 import com.github.sistema_lanchonete.repositories.IngredienteRepository;
 import java.util.List;
 import java.util.Scanner;
@@ -59,9 +58,10 @@ public class IngredienteController {
                 "\t2. Remover ingrediente por id\n" +
                 "\t3. Remover ingrediente pelo nome" +
                 "\n\t4. Voltar ao Menu Principal");
-        int opc = LeitoresController.lerInteiro(sc);
+
         boolean ativo = true;
         do{
+            int opc = LeitoresController.lerInteiro(sc);
             switch (opc) {
                 case 1: listarIngredientes(); break;
                 case 2:
@@ -117,6 +117,49 @@ public class IngredienteController {
             System.out.println("Cadastrado!");
         } catch (Exception e) {
             System.err.println("Erro ao cadastrar ingrediente: " + e.getMessage());
+        }
+    }
+    public void incrementarEstoqueSelecionado(Scanner sc) {
+        try {
+            List<Ingrediente> lista = repository.buscarTodos();
+
+            if (lista.isEmpty()) {
+                System.out.println("Não há ingredientes no estoque.");
+                return;
+            }
+
+            for (Ingrediente i : lista) {
+                System.out.println("ID: " + i.getId() +
+                        " | Nome: " + i.getNome() +
+                        " | Estoque: " + i.getEstoque());
+            }
+
+            System.out.print("Digite o ID do ingrediente: ");
+            long id = LeitoresController.lerInteiro(sc);
+
+            Ingrediente ingrediente = repository.findById(id);
+
+            if (ingrediente == null) {
+                System.out.println("Ingrediente não encontrado.");
+                return;
+            }
+
+            System.out.print("Digite a quantidade a adicionar: ");
+            int quantidade = LeitoresController.lerInteiro(sc);
+
+            if (quantidade <= 0) {
+                System.out.println("Quantidade inválida!");
+                return;
+            }
+
+            ingrediente.setEstoque(ingrediente.getEstoque() + quantidade);
+
+            repository.atualizar(ingrediente);
+
+            System.out.println("Estoque atualizado com sucesso!");
+
+        } catch (Exception e) {
+            System.out.println("Erro ao incrementar estoque: " + e.getMessage());
         }
     }
 }
