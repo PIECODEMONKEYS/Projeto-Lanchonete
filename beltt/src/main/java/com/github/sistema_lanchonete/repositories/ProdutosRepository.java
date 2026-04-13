@@ -1,6 +1,7 @@
 package com.github.sistema_lanchonete.repositories;
 
 import com.github.sistema_lanchonete.entity.Produtos;
+import com.github.sistema_lanchonete.exceptions.AcharProdutoException;
 import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
 import jakarta.persistence.EntityManager;
 
@@ -64,10 +65,17 @@ public class ProdutosRepository {
         return em.createQuery("select c from Produtos c", Produtos.class).getResultList();
     }
 
-    public List<Produtos> findByName(String name) {
-        return em.createQuery("select c from Produtos c where c.nome = :name",
-                        Produtos.class)
-                .setParameter("name", name)
-                .getResultList();
+    public Produtos acharPeloNome(String name) {
+        try{
+            return em.createQuery("select c from Produtos c where c.nome = :name",
+                            Produtos.class)
+                    .setParameter("name", "%" + name + "%")
+                    .getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+        } catch (Exception e) {
+            throw new AcharProdutoException("Erro ao econtrar produto " + name, e);
+        }
     }
 }
