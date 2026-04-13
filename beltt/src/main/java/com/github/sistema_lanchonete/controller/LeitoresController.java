@@ -1,6 +1,8 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.exceptions.DataNegocioException;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LeitoresController {
@@ -19,7 +21,7 @@ public class LeitoresController {
         while (true){
             try {
                 return Double.parseDouble(sc.nextLine());
-            }catch (NumberFormatException e){
+            }catch (InputMismatchException e){
                 System.out.println("Digite algum preço ");
             }
         }
@@ -42,7 +44,7 @@ public class LeitoresController {
                 }
             }catch (DataNegocioException e){
                 System.out.println("Erro inesperado identificado: " + e.getMessage());
-            } catch (NumberFormatException e)
+            } catch (InputMismatchException e)
             {
                 System.out.println("Digite um dia inteiro ex: 01");
             }
@@ -61,7 +63,7 @@ public class LeitoresController {
                 }
             }catch (DataNegocioException e){
                 System.out.println("Erro inesperado identificado: " + e.getMessage());
-            } catch (NumberFormatException e)
+            } catch (InputMismatchException e)
             {
                 System.out.println("Digite um mes inteiro ex: 05");
             }
@@ -80,7 +82,7 @@ public class LeitoresController {
                 }
             }catch (DataNegocioException e){
                 System.out.println("Erro inesperado identificado: " + e.getMessage());
-            } catch (NumberFormatException e)
+            } catch (InputMismatchException e)
             {
                 System.out.println("Digite um ano inteiro ex: 2026");
             }

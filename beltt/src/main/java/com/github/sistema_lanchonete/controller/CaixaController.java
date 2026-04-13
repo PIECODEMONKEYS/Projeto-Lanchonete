@@ -34,6 +34,7 @@ public class CaixaController {
         }
     }
 
+    // MÉTODO QUE FALTAVA PARA A MAIN FUNCIONAR:
     public void fecharCaixa() {
         System.out.println("\n==============================");
         System.out.println("      RESUMO DO TURNO         ");
