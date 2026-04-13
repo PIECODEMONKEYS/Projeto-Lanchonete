@@ -21,7 +21,7 @@ public class ProdutosController {
     public void adicionarItem(Scanner sc, EntityManager em, Produtos produtos)
     {
         try{
-            //noinspection GrazieInspectionRunner
+
             System.out.println("Digite o nome do produto");
             String nome = LeitoresController.lerString(sc);
             if(nome == null || nome.isBlank())
@@ -29,7 +29,7 @@ public class ProdutosController {
                 throw new RegraNegocioException("Nome nao pode ser vazio");
             }
             produtos.setNome(nome);
-            //noinspection GrazieInspectionRunner
+
             System.out.println("Digite o valor do produto");
             double valor = LeitoresController.lerDouble(sc);
             if(valor <= 0)
@@ -52,7 +52,7 @@ public class ProdutosController {
     public void atualizarItem(Scanner sc, EntityManager em, Produtos produtos)
     {
         try{
-            //noinspection GrazieInspectionRunner
+
             System.out.println("Digite o nome do produto");
             String nome = LeitoresController.lerString(sc);
             if(nome == null || nome.isBlank())
@@ -60,7 +60,7 @@ public class ProdutosController {
                 throw new RegraNegocioException("Nome nao pode ser vazio");
             }
             produtos.setNome(nome);
-            //noinspection GrazieInspectionRunner
+
             System.out.println("Digite o valor do produto");
             double valor = LeitoresController.lerDouble(sc);
             if(valor <= 0)
@@ -80,7 +80,7 @@ public class ProdutosController {
         }
     }
 
-    public void deletarItem(Scanner sc)
+    /*public void deletarItem(Scanner sc) por enquanto nao sera usado
     {
         try{
             System.out.println("Digite o id do produto que deseja remover: ");
@@ -94,7 +94,7 @@ public class ProdutosController {
 
             System.out.println("Deseja realmente deletar o item: digite SIM para confirmar");
             String confirmacao = LeitoresController.lerString(sc);
-            if(confirmacao.equals("SIM"))//equals normal pra o usuario ter ctz que quer deletar o item
+            if(confirmacao.equals("sim"))
             {
                 this.repository.delete(produto);
                 System.out.println("Item deletado com sucesso");
@@ -111,16 +111,19 @@ public class ProdutosController {
         {
             System.out.println("Erro inesperado ao remover item: " + e);
         }
-    }
+    }*/
 
     public void cardapio(Scanner sc)
     {
-        System.out.println("1. Listar produtos" +
-                "\n2. Procurar por nome" +
-                "\n3. Voltar ao menu");
-        int opc = LeitoresController.lerInteiro(sc);
+
         boolean ativo = true;
         do{
+
+            System.out.println("1. Listar produtos" +
+                    "\n2. Procurar por nome" +
+                    "\n3. Voltar ao menu");
+
+            int opc = LeitoresController.lerInteiro(sc);
             switch (opc) {
                 case 1: listarTodos(); break;
                 case 2:
