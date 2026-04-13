@@ -69,6 +69,7 @@ public class IngredienteController {
                         IngredienteEntity remove = repository.findById(id);
                         repository.remover(remove);
                         System.out.println("Removido com sucesso!");
+                        ativo = false;
                     } catch (Exception e) {
                         System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
                     }
@@ -80,10 +81,14 @@ public class IngredienteController {
                         IngredienteEntity remove = repository.acharPeloNome(nome);
                         repository.remover(remove);
                         System.out.println("Removido com sucesso!");
+                        ativo = false;
                     } catch (Exception e) {
                         System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
                     }
-
+                break;
+                default:
+                    System.out.println("Selecione uma opcao do menu");
+                    break;
             }
         }while(ativo);
     }

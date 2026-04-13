@@ -1,6 +1,7 @@
 package com.github.sistema_lanchonete.repositories;
 
 import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.exceptions.AcharIngredienteException;
 import com.github.sistema_lanchonete.exceptions.PersistenciaIngredienteRepositoryException;
 import jakarta.persistence.EntityManager;
 import java.util.List;
@@ -62,10 +63,17 @@ public class IngredienteRepository {
     }
 
     public IngredienteEntity acharPeloNome(String name) {
-        return em.createQuery("select i from ingredientes i where i.nome = :name",
-                        IngredienteEntity.class)
-                .setParameter("name", name)
-                .getResultList();
+        try{
+            return em.createQuery("select i from ingredientes i where i.nome = :name",
+                            IngredienteEntity.class)
+                    .setParameter("name", name)
+                    .getResultList()
+                    .stream()
+                    .findFirst()
+                    .orElse(null);
+        } catch(Exception e){
+            throw new AcharIngredienteException("Erro ao tentar achar pelo nome " + name, e);
+        }
     }
 
     public IngredienteEntity findById(long id) {
