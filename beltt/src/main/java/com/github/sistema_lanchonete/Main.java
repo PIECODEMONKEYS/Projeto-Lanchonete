@@ -18,8 +18,7 @@ public class Main {
     public static void main(String[] args) {
         // 1. Inicialização do Banco de Dados
         FlyWayConfig.migrate();
-//nao kkkkk
-        // 2. Preparação do EntityManager e Repositórios necessários para os Controllers
+         // 2. Preparação do EntityManager e Repositórios necessários para os Controllers
         EntityManager em = CustomizerFactory.getEntityManager();
         ProdutosRepository produtosRepo = new ProdutosRepository(em);
 
@@ -28,6 +27,7 @@ public class Main {
         MenuController menu = new MenuController();
         IngredienteController estoque = new IngredienteController();
         Scanner sc = new Scanner(System.in);
+
         // RESOLVE O ERRO DO CONSTRUTOR: Passando o repositório para o cardápio
         ProdutosController cardapio = new ProdutosController(produtosRepo);
         PedidosRepository pedidosRepository = new PedidosRepository(em);

@@ -15,7 +15,7 @@ public class CaixaController {
 
 
     public void abrirCaixa() {
-        System.out.println("=== ABERTURA DE CAIXA ===");
+        System.out.println("\tABERTURA DE CAIXA");
 
         while (true) {
             try {
@@ -38,7 +38,6 @@ public class CaixaController {
         }
     }
 
-    // MÉTODO QUE FALTAVA PARA A MAIN FUNCIONAR:
     public void fecharCaixa() {
         System.out.println("\n==============================");
         System.out.println("      RESUMO DO TURNO         ");
@@ -50,7 +49,6 @@ public class CaixaController {
         this.caixaAberto = false;
     }
 
-    // Método para ser usado pelo futuro PedidoController
     public void registrarVenda(BigDecimal valor) {
         this.totalVendidoNoTurno = this.totalVendidoNoTurno.add(valor);
         this.saldoEmCaixa = this.saldoEmCaixa.add(valor);

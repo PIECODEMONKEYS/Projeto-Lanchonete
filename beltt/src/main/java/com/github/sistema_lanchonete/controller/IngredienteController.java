@@ -6,7 +6,6 @@ import com.github.sistema_lanchonete.repositories.IngredienteRepository;
 import java.util.List;
 import java.util.Scanner;
 
-// VERIFIQUE ESTA LINHA: deve ter o "e" em Ingrediente
 public class IngredienteController {
 
     private final IngredienteRepository repository;
@@ -119,6 +118,7 @@ public class IngredienteController {
             System.err.println("Erro ao cadastrar ingrediente: " + e.getMessage());
         }
     }
+    //pra q serve isso irmao??
     public void incrementarEstoqueSelecionado(Scanner sc) {
         try {
             List<Ingrediente> lista = repository.buscarTodos();

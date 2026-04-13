@@ -79,7 +79,7 @@ public class ProdutosController {
             throw new RuntimeException("Erro inesperado no sistema" + e);
         }
     }
-
+    //decidir se vai deletar a regra de delecao de produtos
     /*public void deletarItem(Scanner sc) por enquanto nao sera usado
     {
         try{

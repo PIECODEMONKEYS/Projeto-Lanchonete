@@ -19,7 +19,6 @@ public class ItemPedido {
 
     private int quantidade;
 
-    // Métodos necessários:
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
     public void setProduto(Produtos produto) { this.produto = produto; }
     public void setQuantidade(int quantidade) { this.quantidade = quantidade; }

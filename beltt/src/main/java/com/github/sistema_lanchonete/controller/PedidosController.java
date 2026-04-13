@@ -85,7 +85,7 @@ public class PedidosController {
         }
     }
 
-    public void procurarPorData(Scanner sc)
+    public void procurarPorData(Scanner sc)//apagar isso kkkkk
     {
         Integer ano = LeitoresController.lerAno(sc);
         Integer mes = LeitoresController.lerMes(sc);

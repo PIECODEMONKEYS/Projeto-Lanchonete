@@ -22,6 +22,7 @@ public class IngredienteRepository {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
+            //isso serve pra ignorar os warnings de typo
             //noinspection GrazieInspectionRunner
             throw new PersistenciaIngredienteRepositoryException("Erro ao tentar salvar o item " + ingrediente.getNome(), e);
         }
