@@ -1,26 +1,24 @@
 package com.github.sistema_lanchonete.entity;
 
-
 import jakarta.persistence.*;
-import java.math.BigDecimal;
-
-
-@SuppressWarnings("GrazieInspectionRunner")
 @Entity
-@Table(name = "produtos")
-public class Produtos {
+@Table(name = "ingredientes")
+public class Ingrediente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
+    private int estoque;
 
-    @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal preco;
+    public Ingrediente() {
+    }
 
-    public Produtos() {
+    public Ingrediente(String nome, int estoque) {
+        this.nome = nome;
+        this.estoque = estoque;
     }
 
     public Long getId() {
@@ -39,11 +37,11 @@ public class Produtos {
         this.nome = nome;
     }
 
-    public BigDecimal getPreco() {
-        return preco;
+    public int getEstoque() {
+        return estoque;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setEstoque(int estoque) {
+        this.estoque = estoque;
     }
 }

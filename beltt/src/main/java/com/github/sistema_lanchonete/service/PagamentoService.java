@@ -2,8 +2,8 @@ package com.github.sistema_lanchonete.service;
 
 
 import com.github.sistema_lanchonete.DTO.PagamentoDTO;
-import com.github.sistema_lanchonete.entity.PagamentoEntity;
+import com.github.sistema_lanchonete.entity.Pagamento;
 
 public interface PagamentoService {
-    PagamentoEntity processarPagamento(PagamentoDTO pagamentoDTO);
+    Pagamento processarPagamento(PagamentoDTO pagamentoDTO);
 }

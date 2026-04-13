@@ -1,8 +1,7 @@
 package com.github.sistema_lanchonete.repositories;
 
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
-import com.github.sistema_lanchonete.entity.PagamentoEntity;
+import com.github.sistema_lanchonete.entity.Pagamento;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public class PagamentoRepository {
         this.em = em;
     }
 
-    public void salvar(PagamentoEntity pagamento){
+    public void salvar(Pagamento pagamento){
         try{
             em.getTransaction().begin();
             em.persist(pagamento);
@@ -25,16 +24,16 @@ public class PagamentoRepository {
             throw new RuntimeException("Erro ao salvar pagamento", e);
         }
     }
-    public PagamentoEntity buscarPorId(Long id){
-        return em.find(PagamentoEntity.class, id);
+    public Pagamento buscarPorId(Long id){
+        return em.find(Pagamento.class, id);
     }
 
-    public List<PagamentoEntity> listarTodos(){
-        return em.createQuery("SELECT p FROM PagamentoEntity p", PagamentoEntity.class)
+    public List<Pagamento> listarTodos(){
+        return em.createQuery("SELECT p FROM PagamentoEntity p", Pagamento.class)
                 .getResultList();
     }
 
-    public void atualizar(PagamentoEntity pagamento){
+    public void atualizar(Pagamento pagamento){
         try{
             em.getTransaction().begin();
             em.merge(pagamento);
@@ -50,7 +49,7 @@ public class PagamentoRepository {
         try{
             em.getTransaction().begin();
 
-            PagamentoEntity pagamento = em.find(PagamentoEntity.class, id);
+            Pagamento pagamento = em.find(Pagamento.class, id);
 
             if(pagamento != null){
                 em.remove(pagamento);

@@ -17,14 +17,15 @@ public class ItemPedido {
     @JoinColumn(name = "fk_produto_id")
     private Produtos produto;
 
-    private Integer quantidade;
+    private int quantidade;
 
     // Métodos necessários:
     public void setPedido(Pedidos pedido) { this.pedido = pedido; }
     public void setProduto(Produtos produto) { this.produto = produto; }
-    public void setQuantidade(Integer quantidade) { this.quantidade = quantidade; }
+    public void setQuantidade(int quantidade) { this.quantidade = quantidade; }
 
+    public ItemPedido(){}
     public Pedidos getPedido() { return pedido; }
     public Produtos getProduto() { return produto; }
-    public Integer getQuantidade() { return quantidade; }
+    public int getQuantidade() { return quantidade; }
 }

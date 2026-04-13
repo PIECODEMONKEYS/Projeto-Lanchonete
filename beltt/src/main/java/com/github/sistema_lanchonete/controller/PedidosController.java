@@ -43,12 +43,12 @@ public class PedidosController {
     }
     public void procurarPorData(Scanner sc)
     {
-        Integer ano = LeitoresController.lerInteiro("Digite o ano (ex: 2026): ");
-        Integer mes = LeitoresController.lerInteiro("Digite o mês (1-12): ");
-        Integer dia = LeitoresController.lerInteiro("Digite o dia (1-31): ");
+        Integer ano = LeitoresController.lerInteiro(sc);
+        Integer mes = LeitoresController.lerInteiro(sc);
+        Integer dia = LeitoresController.lerInteiro(sc);
 
         try {
-            List<Pedidos> pedidosEncontrados = repository.findByDay(ano, mes, dia);
+            List<Pedidos> pedidosEncontrados = repository.ProcurarDia(ano, mes, dia);
 
             if (pedidosEncontrados.isEmpty()) {
                 System.out.println("Nenhum pedido encontrado para a data " + dia + "/" + mes + "/" + ano);

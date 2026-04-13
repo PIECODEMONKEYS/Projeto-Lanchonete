@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.DTO.PagamentoDTO;
-import com.github.sistema_lanchonete.entity.PagamentoEntity;
+import com.github.sistema_lanchonete.entity.Pagamento;
 import com.github.sistema_lanchonete.exceptions.PagamentoIncorretoException;
 import com.github.sistema_lanchonete.service.PagamentoService;
 
@@ -12,7 +12,7 @@ public class PagamentoController {
         this.pagamentoService = pagamentoService;
     }
 
-    public PagamentoEntity realizarPagamento(PagamentoDTO pagamentoDTO){
+    public Pagamento realizarPagamento(PagamentoDTO pagamentoDTO){
         try{
             return pagamentoService.processarPagamento(pagamentoDTO);
         } catch (PagamentoIncorretoException e) {

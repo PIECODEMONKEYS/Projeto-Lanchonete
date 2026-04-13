@@ -44,7 +44,7 @@ public class PedidosRepository {
         return em.createQuery("select p from Pedidos p", Pedidos.class).getResultList();
     }
 
-    public List<Pedidos> findByDay(Integer ano, Integer mes, Integer dia)
+    public List<Pedidos> ProcurarDia(Integer ano, Integer mes, Integer dia)
     {
 
         LocalDate dataProcurada = LocalDate.of(ano, mes, dia);
