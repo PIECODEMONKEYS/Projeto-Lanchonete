@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         // 1. Inicialização do Banco de Dados
         FlyWayConfig.migrate();
-
+//nao kkkkk
         // 2. Preparação do EntityManager e Repositórios necessários para os Controllers
         EntityManager em = CustomizerFactory.getEntityManager();
         ProdutosRepository produtosRepo = new ProdutosRepository(em);

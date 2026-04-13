@@ -29,7 +29,7 @@ public class PagamentoRepository {
     }
 
     public List<Pagamento> listarTodos(){
-        return em.createQuery("SELECT p FROM PagamentoEntity p", Pagamento.class)
+        return em.createQuery("SELECT p FROM Pagamento p", Pagamento.class)
                 .getResultList();
     }
 
