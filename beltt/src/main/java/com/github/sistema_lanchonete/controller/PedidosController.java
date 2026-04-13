@@ -16,15 +16,16 @@ public class PedidosController {
     private final PedidosRepository repository;
     private final PedidosService service;
     private final PagamentoController pagamentoController;
-
+    private CaixaController caixaController;
     private Map<Long, Integer> itensCarrinho = new HashMap<>();
 
     public PedidosController(PedidosRepository repository,
                              PedidosService service,
-                             PagamentoController pagamentoController) {
+                             PagamentoController pagamentoController, CaixaController caixaController) {
         this.repository = repository;
         this.service = service;
         this.pagamentoController = pagamentoController;
+        this.caixaController = caixaController;
     }
 
     public void adicionarItem(Long produtoId, Integer quantidade) {
@@ -39,7 +40,6 @@ public class PedidosController {
             System.out.println("Carrinho vazio!");
             return;
         }
-
         try{
             Pedidos pedidoCriado = service.criarPedido(itensCarrinho);
 
@@ -79,6 +79,7 @@ public class PedidosController {
             System.out.println("metodo: " + pagamento.getMetodo());
             System.out.println("valor final: " + pagamento.getValorFinal());
             System.out.println("status: " + pagamento.getStatus());
+            this.caixaController.registrarVenda(pagamento.getValorFinal());
         } catch (Exception e){
             System.out.println("erro ao finalizar: " + e.getMessage());
         }
