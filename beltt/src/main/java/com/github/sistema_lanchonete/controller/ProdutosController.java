@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.controller;
 
 
-import com.github.sistema_lanchonete.entity.Ingrediente;
+
 import com.github.sistema_lanchonete.entity.Produtos;
 import com.github.sistema_lanchonete.exceptions.CardapioVazioException;
 import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
@@ -94,7 +94,7 @@ public class ProdutosController {
 
             System.out.println("Deseja realmente deletar o item: digite SIM para confirmar");
             String confirmacao = LeitoresController.lerString(sc);
-            if(confirmacao.equals("SIM"))//equals normal pra o usuario ter ctz que quer deletar o item
+            if(confirmacao.equals("sim"))//equals normal pra o usuario ter ctz que quer deletar o item
             {
                 this.repository.delete(produto);
                 System.out.println("Item deletado com sucesso");
@@ -118,9 +118,9 @@ public class ProdutosController {
         System.out.println("1. Listar produtos" +
                 "\n2. Procurar por nome" +
                 "\n3. Voltar ao menu");
-        int opc = LeitoresController.lerInteiro(sc);
         boolean ativo = true;
         do{
+            int opc = LeitoresController.lerInteiro(sc);
             switch (opc) {
                 case 1: listarTodos(); break;
                 case 2:
