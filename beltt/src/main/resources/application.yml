@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Lanchonete
+    username: postgres
+    password: admin
+
+  flyway:
+    enabled: true
