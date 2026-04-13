@@ -21,10 +21,8 @@ public class Main {
         MenuController menu = new MenuController();
         IngredienteController estoque = new IngredienteController();
 
-        // RESOLVE O ERRO DO CONSTRUTOR: Passando o repositório para o cardápio
         ProdutosController cardapio = new ProdutosController(produtosRepo);
 
-        // Injeção de dependência crucial para o funcionamento do Pedido
         PedidoController pedidos = new PedidoController(caixa);
 
         try {
@@ -32,40 +30,37 @@ public class Main {
 
             boolean rodando = true;
             while (rodando && caixa.isCaixaAberto()) {
-                // Exibe apenas o menu visual
                 menu.exibirMenuPrincipal();
 
-                // O input é centralizado aqui pelo LeitoresController
                 int opcao = LeitoresController.lerInteiro("\nSelecione uma opção: ");
 
                 switch (opcao) {
                     case 1 -> {
-                        System.out.println("\n📂 --- ÁREA DO CARDÁPIO ---");
+                        System.out.println("\n--- ÁREA DO CARDÁPIO ---");
                         cardapio.exibirMenuProdutos();
                     }
                     case 2 -> {
-                        System.out.println("\n📦 --- ÁREA DO ESTOQUE ---");
+                        System.out.println("\n--- ÁREA DO ESTOQUE ---");
                         estoque.exibirMenuEstoque();
                     }
                     case 3 -> {
-                        System.out.println("\n🍔 --- INICIANDO PEDIDO ---");
+                        System.out.println("\n--- INICIANDO PEDIDO ---");
                         pedidos.novoPedido();
                     }
                     case 4 -> {
                         caixa.fecharCaixa();
                         rodando = false;
                     }
-                    default -> System.out.println("⚠️ Opção inválida! Tente novamente.");
+                    default -> System.out.println("Opção inválida! Tente novamente.");
                 }
             }
         } catch (Exception e) {
-            System.err.println("💥 Erro crítico no sistema: " + e.getMessage());
+            System.err.println("Erro crítico no sistema: " + e.getMessage());
             e.printStackTrace();
         } finally {
-            // Limpeza de recursos (Hibernate e EntityManager)
             HibernateConfig.shutdown();
             CustomizerFactory.fechar();
-            System.out.println("\n✅ Banco de dados desconectado. Aplicação finalizada.");
+            System.out.println("\nBanco de dados desconectado. Aplicação finalizada.");
         }
     }
 }

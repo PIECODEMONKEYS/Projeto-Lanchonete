@@ -1,6 +1,6 @@
 package com.github.sistema_lanchonete.repositories;
 
-import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.entity.Ingrediente;
 import jakarta.persistence.EntityManager;
 import java.util.List;
 
@@ -14,15 +14,15 @@ public class IngredienteRepository {
     }
 
     // MÉTODO QUE RESOLVE O ERRO: findAll
-    public List<IngredienteEntity> findAll() {
-        return entityManager.createQuery("from IngredienteEntity", IngredienteEntity.class).getResultList();
+    public List<Ingrediente> findAll() {
+        return entityManager.createQuery("from IngredienteEntity", Ingrediente.class).getResultList();
     }
-    public List<IngredienteEntity> buscarTodos() {
+    public List<Ingrediente> buscarTodos() {
         return findAll();
     }
 
     // MÉTODO NOVO: Adicionado para resolver o erro 'cannot find symbol method salvar'
-    public void salvar(IngredienteEntity ingrediente) {
+    public void salvar(Ingrediente ingrediente) {
         try {
             entityManager.getTransaction().begin();
             // O merge é mais seguro pois lida com objetos novos e atualizações
@@ -37,7 +37,7 @@ public class IngredienteRepository {
     }
 
     // Mantém compatibilidade com quem usa o método create
-    public void create(IngredienteEntity ingrediente) {
+    public void create(Ingrediente ingrediente) {
         salvar(ingrediente);
     }
 }

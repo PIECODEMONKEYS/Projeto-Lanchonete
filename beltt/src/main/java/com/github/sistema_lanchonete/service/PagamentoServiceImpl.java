@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.service;
 
 import com.github.sistema_lanchonete.DTO.PagamentoDTO;
-import com.github.sistema_lanchonete.entity.PagamentoEntity;
+import com.github.sistema_lanchonete.entity.Pagamento;
 import com.github.sistema_lanchonete.entity.Pedidos;
 import com.github.sistema_lanchonete.exceptions.PagamentoIncorretoException;
 import com.github.sistema_lanchonete.repositories.PagamentoRepository;
@@ -25,7 +25,7 @@ public class PagamentoServiceImpl implements PagamentoService {
     }
 
     @Override
-    public PagamentoEntity processarPagamento(PagamentoDTO pagamentoDTO) {
+    public Pagamento processarPagamento(PagamentoDTO pagamentoDTO) {
         if (pagamentoDTO == null) {
             throw new PagamentoIncorretoException("PagamentoDTO não pode ser null");
         }
@@ -64,7 +64,7 @@ public class PagamentoServiceImpl implements PagamentoService {
         BigDecimal taxa = calcularTaxa(valorOriginal, metodo);
         BigDecimal valorFinal = valorOriginal.add(taxa).setScale(2, RoundingMode.HALF_UP);
 
-        PagamentoEntity pagamento = new PagamentoEntity();
+        Pagamento pagamento = new Pagamento();
         pagamento.setPedido(pedido);
         pagamento.setMetodo(metodo);
         pagamento.setValorOriginal(valorOriginal.setScale(2, RoundingMode.HALF_UP));

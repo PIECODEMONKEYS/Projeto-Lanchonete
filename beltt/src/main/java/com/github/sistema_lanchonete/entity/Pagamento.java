@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pagamento")
-public class PagamentoEntity {
+public class Pagamento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class PagamentoEntity {
     @Column(nullable = false)
     private StatusPagamento status;
 
-    @Column(name = "data_pagamento")
+    @Column(name = "data_pagamento", nullable = false)
     private LocalDateTime dataPagamento;
 
     @OneToOne
@@ -48,7 +48,7 @@ public class PagamentoEntity {
         this.pedido = pedido;
     }
 
-    public PagamentoEntity() {
+    public Pagamento() {
     }
 
     public Long getIdPagamento() {

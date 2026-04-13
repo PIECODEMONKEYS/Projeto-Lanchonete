@@ -1,9 +1,8 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
-import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.entity.Ingrediente;
 import com.github.sistema_lanchonete.repositories.IngredienteRepository;
-import java.util.List;
 
 // VERIFIQUE ESTA LINHA: deve ter o "e" em Ingrediente
 public class IngredienteController {
@@ -36,12 +35,12 @@ public class IngredienteController {
     private void listarIngredientes() {
         System.out.println("\n--- CONSULTANDO BANCO DE DADOS ---");
         try {
-            List<IngredienteEntity> lista = repository.findAll();
+            List<Ingrediente> lista = repository.findAll();
             if (lista.isEmpty()) {
                 System.out.println("O estoque está vazio.");
             } else {
                 System.out.printf("%-5s | %-20s | %-10s%n", "ID", "NOME", "QUANTIDADE");
-                for (IngredienteEntity i : lista) {
+                for (Ingrediente i : lista) {
                     System.out.printf("%-5d | %-20s | %-10d%n", i.getId(), i.getNome(), i.getEstoque());
                 }
             }
@@ -54,7 +53,7 @@ public class IngredienteController {
         String nome = LeitoresController.lerString("Nome: ");
         int qtd = LeitoresController.lerInteiro("Qtd: ");
         try {
-            IngredienteEntity novo = new IngredienteEntity();
+            Ingrediente novo = new Ingrediente();
             novo.setNome(nome);
             novo.setEstoque(qtd);
             repository.create(novo);
