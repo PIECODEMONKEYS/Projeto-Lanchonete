@@ -6,11 +6,12 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class CaixaController {
-    private double saldoEmCaixa;
+    private BigDecimal saldoEmCaixa = BigDecimal.ZERO;
     private boolean caixaAberto = false;
     private int totalPedidosNoTurno = 0; // Para o resumo final
-    private double totalVendidoNoTurno = 0; // Para o resumo final
+    private BigDecimal totalVendidoNoTurno = BigDecimal.ZERO;// Para o resumo final
     Scanner sc = new Scanner(System.in);
+
 
 
     public void abrirCaixa() {
@@ -25,7 +26,7 @@ public class CaixaController {
                     throw new AberturaCaixaNegocioException("Valor negativo");
                 }
 
-                this.saldoEmCaixa = valorInicial;
+                this.saldoEmCaixa = BigDecimal.valueOf(valorInicial);
                 this.caixaAberto = true;
 
                 System.out.println("Saldo: R$ " + String.format("%.2f", saldoEmCaixa));
@@ -51,8 +52,8 @@ public class CaixaController {
 
     // Método para ser usado pelo futuro PedidoController
     public void registrarVenda(BigDecimal valor) {
-        this.totalVendidoNoTurno += valor;
-        this.saldoEmCaixa += valor;
+        this.totalVendidoNoTurno = this.totalVendidoNoTurno.add(valor);
+        this.saldoEmCaixa = this.saldoEmCaixa.add(valor);
         this.totalPedidosNoTurno++;
     }
 
