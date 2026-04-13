@@ -64,7 +64,7 @@ public class IngredienteRepository {
 
     public Ingrediente acharPeloNome(String name) {
         try{
-            return em.createQuery("select i from ingredientes i where i.nome = :name",
+            return em.createQuery("select i from Ingrediente i where i.nome = :name",
                             Ingrediente.class)
                     .setParameter("name", name)
                     .getResultList()
