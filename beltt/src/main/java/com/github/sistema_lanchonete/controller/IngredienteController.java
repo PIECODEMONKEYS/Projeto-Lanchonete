@@ -31,6 +31,7 @@ public class IngredienteController {
             switch (escolha) {
                 case 1: listarIngredientes(); break;
                 case 2: cadastrarIngrediente(sc); break;
+                case 3: removerIngrediente(sc); break;
                 case 4: noEstoque = false; break;
                 default: System.out.println("Opção inválida!");
             }
@@ -56,7 +57,8 @@ public class IngredienteController {
     private void removerIngrediente(Scanner sc) {
         System.out.println("\t1. Mostrar lista de Ingredientes\n" +
                 "\t2. Remover ingrediente por id\n" +
-                "\t3. Remover ingrediente pelo nome");
+                "\t3. Remover ingrediente pelo nome" +
+                "\n\t4. Voltar ao Menu Principal");
         int opc = LeitoresController.lerInteiro(sc);
         boolean ativo = true;
         do{
@@ -86,6 +88,7 @@ public class IngredienteController {
                         System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
                     }
                 break;
+                case 4: ativo = false; break;
                 default:
                     System.out.println("Selecione uma opcao do menu");
                     break;
