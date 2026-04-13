@@ -41,7 +41,7 @@ public class Ingrediente {
         return estoque;
     }
 
-    public void setEstoque(Integer estoque) {
+    public void setEstoque(int estoque) {
         this.estoque = estoque;
     }
 }

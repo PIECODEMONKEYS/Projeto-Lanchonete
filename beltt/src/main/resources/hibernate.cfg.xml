@@ -11,13 +11,12 @@
 
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
-        <property name="hibernate.hbm2ddl.auto">none</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
 
         <mapping class="com.github.sistema_lanchonete.entity.Produtos"/>
         <mapping class="com.github.sistema_lanchonete.entity.Ingrediente"/>
         <mapping class="com.github.sistema_lanchonete.entity.Pedidos"/>
         <mapping class="com.github.sistema_lanchonete.entity.ItemPedido"/>
-        <mapping class="com.github.sistema_lanchonete.entity.Pagamento"/>
 
     </session-factory>
 </hibernate-configuration>

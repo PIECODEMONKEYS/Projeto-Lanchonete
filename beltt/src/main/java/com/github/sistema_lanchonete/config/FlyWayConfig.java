@@ -10,7 +10,6 @@ public class FlyWayConfig {
                         "postgres",
                         "admin"
                 )
-                // Mude para FALSE para ele não pular a criação das tabelas (V1)
                 .baselineOnMigrate(false)
                 .load();
 
