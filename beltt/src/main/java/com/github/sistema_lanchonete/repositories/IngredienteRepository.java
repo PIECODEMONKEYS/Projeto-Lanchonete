@@ -61,7 +61,7 @@ public class IngredienteRepository {
         return em.createQuery("FROM IngredienteEntity", IngredienteEntity.class).getResultList();
     }
 
-    public List<IngredienteEntity> findByName(String name) {
+    public IngredienteEntity acharPeloNome(String name) {
         return em.createQuery("select i from ingredientes i where i.nome = :name",
                         IngredienteEntity.class)
                 .setParameter("name", name)

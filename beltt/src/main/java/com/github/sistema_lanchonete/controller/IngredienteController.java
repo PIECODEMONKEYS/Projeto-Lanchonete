@@ -2,6 +2,7 @@ package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
 import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.exceptions.DataNegocioException;
 import com.github.sistema_lanchonete.repositories.IngredienteRepository;
 import java.util.List;
 import java.util.Scanner;
@@ -62,13 +63,27 @@ public class IngredienteController {
             switch (opc) {
                 case 1: listarIngredientes(); break;
                 case 2:
-                    System.out.println("Digite o id do ingrediente: ");
-                    int id = LeitoresController.lerInteiro(sc);
                     try {
+                        System.out.println("Digite o id do ingrediente: ");
+                        int id = LeitoresController.lerInteiro(sc);
                         IngredienteEntity remove = repository.findById(id);
-
+                        repository.remover(remove);
+                        System.out.println("Removido com sucesso!");
+                    } catch (Exception e) {
+                        System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
                     }
                 break;
+                case 3:
+                    try{
+                        System.out.println("Digite o nome exato do ingredient");
+                        String nome = LeitoresController.lerString(sc);
+                        IngredienteEntity remove = repository.acharPeloNome(nome);
+                        repository.remover(remove);
+                        System.out.println("Removido com sucesso!");
+                    } catch (Exception e) {
+                        System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
+                    }
+
             }
         }while(ativo);
     }
@@ -85,7 +100,7 @@ public class IngredienteController {
                 try{
                     repository.atualizar(novo);
                 } catch (Exception e) {
-                    System.out.println("Erro ao atualizar o produto: " + e.getMessage());
+                    System.out.println("Erro ao atualizar o ingrediente: " + e.getMessage());
                     return;
                 }
             } else {
@@ -93,7 +108,7 @@ public class IngredienteController {
             }
             System.out.println("Cadastrado!");
         } catch (Exception e) {
-            System.err.println("Erro ao cadastrar produto: " + e.getMessage());
+            System.err.println("Erro ao cadastrar ingrediente: " + e.getMessage());
         }
     }
 }
