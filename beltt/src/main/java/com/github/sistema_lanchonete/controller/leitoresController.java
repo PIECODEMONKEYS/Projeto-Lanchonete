@@ -5,7 +5,7 @@ import com.github.sistema_lanchonete.exceptions.DataNegocioException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class LeitoresController {
+public class leitoresController {
 
     public static Integer lerInteiro(Scanner sc)
     {
