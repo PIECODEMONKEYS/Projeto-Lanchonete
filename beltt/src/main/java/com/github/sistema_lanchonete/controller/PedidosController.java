@@ -3,6 +3,7 @@ package com.github.sistema_lanchonete.controller;
 import com.github.sistema_lanchonete.DTO.PagamentoDTO;
 import com.github.sistema_lanchonete.entity.Pagamento;
 import com.github.sistema_lanchonete.entity.Pedidos;
+import com.github.sistema_lanchonete.exceptions.PagamentoIncorretoException;
 import com.github.sistema_lanchonete.repositories.PedidosRepository;
 import com.github.sistema_lanchonete.service.PedidosService;
 
@@ -59,7 +60,7 @@ public class PedidosController {
                 case 2 -> "DEBITO";
                 case 3 -> "PIX";
                 case 4 -> "DINHEIRO";
-                default -> throw new IllegalArgumentException("metodo nao existente");
+                default -> throw new PagamentoIncorretoException("metodo nao existente");
             };
 
             PagamentoDTO dto = new PagamentoDTO();
@@ -85,9 +86,9 @@ public class PedidosController {
 
     public void procurarPorData(Scanner sc)
     {
-        Integer ano = LeitoresController.lerInteiro(sc);
-        Integer mes = LeitoresController.lerInteiro(sc);
-        Integer dia = LeitoresController.lerInteiro(sc);
+        Integer ano = LeitoresController.lerAno(sc);
+        Integer mes = LeitoresController.lerMes(sc);
+        Integer dia = LeitoresController.lerDia(sc);
 
         try {
             List<Pedidos> pedidosEncontrados = repository.ProcurarDia(ano, mes, dia);

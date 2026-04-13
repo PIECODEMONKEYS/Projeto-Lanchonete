@@ -1,7 +1,6 @@
 package com.github.sistema_lanchonete.repositories;
 
 import com.github.sistema_lanchonete.entity.Pedidos;
-import com.github.sistema_lanchonete.exceptions.DataPersistenceException;
 import com.github.sistema_lanchonete.exceptions.PersistencePedidosException;
 import jakarta.persistence.EntityManager;
 
@@ -23,7 +22,7 @@ public class PedidosRepository {
         return em.find(Pedidos.class, id);
     }
 
-    public void create(Pedidos pedidos)
+    public void salvar(Pedidos pedidos)
     {
         try{
             em.getTransaction().begin();
@@ -39,7 +38,7 @@ public class PedidosRepository {
         }
     }
 
-    public List<Pedidos> findAll()
+    public List<Pedidos> acharTodos()
     {
         return em.createQuery("select p from Pedidos p", Pedidos.class).getResultList();
     }
