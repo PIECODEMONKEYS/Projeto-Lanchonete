@@ -1,7 +1,7 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.config.CustomizerFactory;
-import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.entity.Ingrediente;
 import com.github.sistema_lanchonete.exceptions.DataNegocioException;
 import com.github.sistema_lanchonete.repositories.IngredienteRepository;
 import java.util.List;
@@ -40,12 +40,12 @@ public class IngredienteController {
     private void listarIngredientes() {
         System.out.println("\n\tCONSULTANDO BANCO DE DADOS");
         try {
-            List<IngredienteEntity> lista = repository.buscarTodos();
+            List<Ingrediente> lista = repository.buscarTodos();
             if (lista.isEmpty()) {
                 System.out.println("O estoque está vazio.");
             } else {
                 System.out.printf("%-5s | %-20s | %-10s%n", "ID", "NOME", "QUANTIDADE");
-                for (IngredienteEntity i : lista) {
+                for (Ingrediente i : lista) {
                     System.out.printf("%-5d | %-20s | %-10d%n", i.getId(), i.getNome(), i.getEstoque());
                 }
             }
@@ -66,7 +66,7 @@ public class IngredienteController {
                     try {
                         System.out.println("Digite o id do ingrediente: ");
                         int id = LeitoresController.lerInteiro(sc);
-                        IngredienteEntity remove = repository.findById(id);
+                        Ingrediente remove = repository.findById(id);
                         repository.remover(remove);
                         System.out.println("Removido com sucesso!");
                         ativo = false;
@@ -78,7 +78,7 @@ public class IngredienteController {
                     try{
                         System.out.println("Digite o nome exato do ingredient");
                         String nome = LeitoresController.lerString(sc);
-                        IngredienteEntity remove = repository.acharPeloNome(nome);
+                        Ingrediente remove = repository.acharPeloNome(nome);
                         repository.remover(remove);
                         System.out.println("Removido com sucesso!");
                         ativo = false;
@@ -98,7 +98,7 @@ public class IngredienteController {
         System.out.println("Quantidade do estoque atual:");
         int qtd = LeitoresController.lerInteiro(sc);
         try {
-            IngredienteEntity novo = new IngredienteEntity();
+            Ingrediente novo = new Ingrediente();
             novo.setNome(nome);
             novo.setEstoque(qtd);
             if (repository.existePorNome(nome)) {
