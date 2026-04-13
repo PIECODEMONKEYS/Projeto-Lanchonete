@@ -3,11 +3,12 @@ package com.github.sistema_lanchonete.controller;
 
 
 import com.github.sistema_lanchonete.entity.Produtos;
+import com.github.sistema_lanchonete.exceptions.AcharProdutoException;
 import com.github.sistema_lanchonete.exceptions.CardapioVazioException;
 import com.github.sistema_lanchonete.exceptions.PersistenciaProdutoRepositoryException;
 import com.github.sistema_lanchonete.exceptions.RegraNegocioException;
 import com.github.sistema_lanchonete.repositories.ProdutosRepository;
-import jakarta.persistence.EntityManager;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Scanner;
@@ -52,7 +53,10 @@ public class ProdutosController {
     public void atualizarItem(Scanner sc)
     {
         try{
-            Produtos produtos = new Produtos();
+            System.out.println("Digite o id do produto");
+            Integer id = LeitoresController.lerInteiro(sc);
+            Produtos produtos = repository.findById(id);
+            if(produtos == null) throw new AcharProdutoException("Produto com id " + id + " nao encontrado");
             System.out.println("Digite o nome do produto");
             String nome = LeitoresController.lerString(sc);
             if(nome == null || nome.isBlank())
@@ -70,7 +74,7 @@ public class ProdutosController {
             produtos.setPreco(BigDecimal.valueOf(valor));
 
             this.repository.atualizar(produtos);
-            System.out.println("Produto criado com sucesso");
+            System.out.println("Produto atualizado com sucesso");
         } catch (RegraNegocioException e) {
             throw new RegraNegocioException("Erro no envio de valores");
         } catch (PersistenciaProdutoRepositoryException e) {
@@ -130,13 +134,21 @@ public class ProdutosController {
                     try{
                         System.out.println("Digite o nome exato do produto");
                         String nome = LeitoresController.lerString(sc);
-                        Produtos achado = repository.acharPeloNome(nome);
-                        System.out.println("ID: " + achado.getId());
-                        System.out.println("Nome: " + achado.getNome());
-                        System.out.println("Preço: R$ " + achado.getPreco());
-                        ativo = false;
+                        List<Produtos> achado = repository.acharPeloNome(nome);
+                        if(achado == null) {
+                            throw new AcharProdutoException("Produto " + nome + " nao encontrado");
+                        } else {
+                            for (Produtos p : achado) {
+                                System.out.println("ID: " + p.getId());
+                                System.out.println("Nome: " + p.getNome());
+                                System.out.println("Preço: R$ " + p.getPreco());
+                                System.out.println("----------------------");
+                                ativo = false;
+                            }
+                        }
+
                     } catch (Exception e) {
-                        System.out.println("Erro ao deletar ingrediente: " + e.getMessage());
+                        System.out.println("Erro ao procurar produto: " + e.getMessage());
                     }
                     break;
                 case 3: ativo = false; break;
