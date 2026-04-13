@@ -58,7 +58,7 @@ public class Main {
                 switch (opcao) {
                     case 1 -> {
                         System.out.println("\n\tÁREA DO CARDÁPIO");
-                        cardapio.exibirMenuProdutos();
+                        cardapio.exibirMenuProdutos(sc);
                     }
                     case 2 -> {
                         System.out.println("\n\tÁREA DO ESTOQUE");

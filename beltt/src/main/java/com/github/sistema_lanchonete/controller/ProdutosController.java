@@ -18,10 +18,10 @@ public class ProdutosController {
         this.repository = repository;
     }
     //RegraNegocioException e PersistenciaRepositoryException explicada na pasta exceptions
-    public void adicionarItem(Scanner sc, EntityManager em, Produtos produtos)
+    public void adicionarItem(Scanner sc)
     {
         try{
-
+            Produtos produtos = new Produtos();
             System.out.println("Digite o nome do produto");
             String nome = LeitoresController.lerString(sc);
             if(nome == null || nome.isBlank())
@@ -49,10 +49,10 @@ public class ProdutosController {
         }
     }
 
-    public void atualizarItem(Scanner sc, EntityManager em, Produtos produtos)
+    public void atualizarItem(Scanner sc)
     {
         try{
-
+            Produtos produtos = new Produtos();
             System.out.println("Digite o nome do produto");
             String nome = LeitoresController.lerString(sc);
             if(nome == null || nome.isBlank())
@@ -163,5 +163,33 @@ public class ProdutosController {
         } catch (Exception e) {
             System.err.println("Erro: " + e.getMessage());
         }
+    }
+
+    public void exibirMenuProdutos(Scanner sc)
+    {
+        boolean ativo = true;
+        do {
+            System.out.println("\tSelecione uma opcao" +
+                    "\n\t1. Cardapio(visualizacao de produtos)" +
+                    "\n\t2. Adicionar item" +
+                    "\n\t3. Atualizar item" +
+                    "\n\t4. Voltar ao menu");
+            int opc = LeitoresController.lerInteiro(sc);
+            switch (opc) {
+                case 1: cardapio(sc); break;
+                case 2:
+                    adicionarItem(sc);
+                    ativo = false;
+                break;
+                case 3:
+                    atualizarItem(sc);
+                    ativo = false;
+                break;
+                case 4: ativo = false; break;
+                default:
+                    System.out.println("Selecione uma opcao do menu");
+                break;
+            }
+        }while(ativo);
     }
 }
