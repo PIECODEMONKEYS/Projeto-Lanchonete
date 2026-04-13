@@ -1,6 +1,6 @@
 package com.github.sistema_lanchonete.repositories;
 
-import com.github.sistema_lanchonete.entity.IngredienteEntity;
+import com.github.sistema_lanchonete.entity.Ingrediente;
 import com.github.sistema_lanchonete.exceptions.AcharIngredienteException;
 import com.github.sistema_lanchonete.exceptions.PersistenciaIngredienteRepositoryException;
 import jakarta.persistence.EntityManager;
@@ -13,7 +13,7 @@ public class IngredienteRepository {
         this.em = em;
     }
 
-    public void salvar(IngredienteEntity ingrediente) {
+    public void salvar(Ingrediente ingrediente) {
         try {
             em.getTransaction().begin();
             em.persist(ingrediente);
@@ -28,7 +28,7 @@ public class IngredienteRepository {
     }
 
 
-    public void atualizar(IngredienteEntity ingrediente) {
+    public void atualizar(Ingrediente ingrediente) {
         try {
             em.getTransaction().begin();
             em.merge(ingrediente);
@@ -43,7 +43,7 @@ public class IngredienteRepository {
     }
 
 
-    public void remover(IngredienteEntity ingrediente) {
+    public void remover(Ingrediente ingrediente) {
         try{
             em.getTransaction().begin();
             em.remove(em.contains(ingrediente) ? ingrediente : em.merge(ingrediente));
@@ -58,14 +58,14 @@ public class IngredienteRepository {
         }
     }
 
-    public List<IngredienteEntity> buscarTodos() {
-        return em.createQuery("FROM IngredienteEntity", IngredienteEntity.class).getResultList();
+    public List<Ingrediente> buscarTodos() {
+        return em.createQuery("FROM Ingrediente", Ingrediente.class).getResultList();
     }
 
-    public IngredienteEntity acharPeloNome(String name) {
+    public Ingrediente acharPeloNome(String name) {
         try{
             return em.createQuery("select i from ingredientes i where i.nome = :name",
-                            IngredienteEntity.class)
+                            Ingrediente.class)
                     .setParameter("name", name)
                     .getResultList()
                     .stream()
@@ -76,12 +76,12 @@ public class IngredienteRepository {
         }
     }
 
-    public IngredienteEntity findById(long id) {
-        return em.find(IngredienteEntity.class, id);
+    public Ingrediente findById(long id) {
+        return em.find(Ingrediente.class, id);
     }
 
     public boolean existePorNome(String nome) {
-        Long count = em.createQuery("SELECT COUNT(i) FROM IngredienteEntity i WHERE LOWER(i.nome) = LOWER(:nome)", Long.class)
+        Long count = em.createQuery("SELECT COUNT(i) FROM Ingrediente i WHERE LOWER(i.nome) = LOWER(:nome)", Long.class)
                 .setParameter("nome", nome.trim())
                 .getSingleResult();
         return count > 0;
