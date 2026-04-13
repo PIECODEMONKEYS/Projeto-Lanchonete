@@ -1,5 +1,7 @@
 package com.github.sistema_lanchonete.controller;
 
+import com.github.sistema_lanchonete.DTO.PagamentoDTO;
+import com.github.sistema_lanchonete.entity.Pagamento;
 import com.github.sistema_lanchonete.entity.Pedidos;
 import com.github.sistema_lanchonete.repositories.PedidosRepository;
 import com.github.sistema_lanchonete.service.PedidosService;
@@ -12,12 +14,16 @@ import java.util.Scanner;
 public class PedidosController {
     private final PedidosRepository repository;
     private final PedidosService service;
+    private final PagamentoController pagamentoController;
 
     private Map<Long, Integer> itensCarrinho = new HashMap<>();
 
-    public PedidosController(PedidosRepository repository, PedidosService service) {
+    public PedidosController(PedidosRepository repository,
+                             PedidosService service,
+                             PagamentoController pagamentoController) {
         this.repository = repository;
         this.service = service;
+        this.pagamentoController = pagamentoController;
     }
 
     public void adicionarItem(Long produtoId, Integer quantidade) {
@@ -27,20 +33,56 @@ public class PedidosController {
         System.out.println("Produto " + produtoId + " adicionado. Quantidade atual: " + itensCarrinho.get(produtoId));
     }
 
-    public void finalizarPedido() {
+    public void finalizarPedido(Scanner sc) {
         if (itensCarrinho.isEmpty()) {
             System.out.println("Carrinho vazio!");
             return;
         }
 
-        try {
+        try{
             Pedidos pedidoCriado = service.criarPedido(itensCarrinho);
-            itensCarrinho.clear(); // Limpa o carrinho após o sucesso
-            System.out.println("Pedido realizado com sucesso!");
-        } catch (Exception e) {
-            System.err.println("Erro ao finalizar: " + e.getMessage());
+
+            System.out.println("pedido realizadp");
+            System.out.println("Id: " + pedidoCriado.getId());
+            System.out.println("Total a pagar:" + pedidoCriado.getValorTotal());
+
+            System.out.println("Metodo de pagamento: ");
+            System.out.println("1-credito");
+            System.out.println("2-debito");
+            System.out.println("3-pix");
+            System.out.println("4-dinheiro");
+
+            int opcao = LeitoresController.lerInteiro(sc);
+
+            String metodo = switch (opcao){
+                case 1 -> "CREDITO";
+                case 2 -> "DEBITO";
+                case 3 -> "PIX";
+                case 4 -> "DINHEIRO";
+                default -> throw new IllegalArgumentException("metodo nao existente");
+            };
+
+            PagamentoDTO dto = new PagamentoDTO();
+            dto.setPedidoId(pedidoCriado.getId());
+            dto.setMetodoPagamento(metodo);
+
+            Pagamento pagamento = pagamentoController.realizarPagamento(dto);
+
+            if (pagamento == null){
+                System.out.println("erro ao processar pagamento");
+                return;
+            }
+            itensCarrinho.clear();
+
+            System.out.println("pagamento feito com sucesso");
+            System.out.println("metodo: " + pagamento.getMetodo());
+            System.out.println("valor final: " + pagamento.getValorFinal());
+            System.out.println("status: " + pagamento.getStatus());
+        } catch (Exception e){
+            System.out.println("erro ao finalizar: " + e.getMessage());
         }
     }
+
     public void procurarPorData(Scanner sc)
     {
         Integer ano = LeitoresController.lerInteiro(sc);
