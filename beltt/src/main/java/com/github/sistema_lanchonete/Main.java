@@ -32,6 +32,7 @@ public class Main {
         ProdutosController cardapio = new ProdutosController(produtosRepo);
         PedidosRepository pedidosRepository = new PedidosRepository(em);
         PedidosService pedidosService = new PedidosService(em);
+        CaixaController caixaController = new CaixaController();
 
         PagamentoRepository pagamentoRepository = new PagamentoRepository(em);
         PagamentoService pagamentoService = new PagamentoServiceImpl(pagamentoRepository, pedidosRepository);
@@ -40,7 +41,7 @@ public class Main {
         PedidosController pedidosController = new PedidosController(
                 pedidosRepository,
                 pedidosService,
-                pagamentoController
+                pagamentoController, caixaController
         );
 
         try {

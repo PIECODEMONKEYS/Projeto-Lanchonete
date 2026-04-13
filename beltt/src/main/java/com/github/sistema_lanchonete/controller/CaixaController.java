@@ -1,6 +1,8 @@
 package com.github.sistema_lanchonete.controller;
 
 import com.github.sistema_lanchonete.exceptions.AberturaCaixaNegocioException;
+
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class CaixaController {
@@ -9,6 +11,7 @@ public class CaixaController {
     private int totalPedidosNoTurno = 0; // Para o resumo final
     private double totalVendidoNoTurno = 0; // Para o resumo final
     Scanner sc = new Scanner(System.in);
+
 
     public void abrirCaixa() {
         System.out.println("=== ABERTURA DE CAIXA ===");
@@ -47,7 +50,7 @@ public class CaixaController {
     }
 
     // Método para ser usado pelo futuro PedidoController
-    public void registrarVenda(double valor) {
+    public void registrarVenda(BigDecimal valor) {
         this.totalVendidoNoTurno += valor;
         this.saldoEmCaixa += valor;
         this.totalPedidosNoTurno++;
