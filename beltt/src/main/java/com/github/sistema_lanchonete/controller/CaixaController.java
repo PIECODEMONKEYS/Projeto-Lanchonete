@@ -3,16 +3,19 @@ package com.github.sistema_lanchonete.controller;
 import com.github.sistema_lanchonete.exceptions.AberturaCaixaNegocioException;
 import com.github.sistema_lanchonete.exceptions.LeituraUsuarioNegocioException;
 
+import java.util.Scanner;
+
 public class CaixaController {
     private double saldoEmCaixa;
     private boolean caixaAberto = false;
     private int totalPedidosNoTurno = 0; // Para o resumo final
     private double totalVendidoNoTurno = 0; // Para o resumo final
 
-    public void abrirCaixa() {
+    public void abrirCaixa(Scanner sc) {
         System.out.println("=== ABERTURA DE CAIXA ===");
         try {
-            double valorInicial = LeitoresController.lerDouble("Informe o valor inicial (fundo de caixa): ");
+            System.out.println("Informe o valor inicial (fundo de caixa): ");
+            double valorInicial = LeitoresController.lerDouble(sc);
 
             if (valorInicial < 0) {
                 throw new AberturaCaixaNegocioException("Não é possível abrir o caixa com valor negativo.");
@@ -24,10 +27,10 @@ public class CaixaController {
 
         } catch (AberturaCaixaNegocioException e) {
             System.err.println(e.getMessage());
-            abrirCaixa(); // Tenta novamente em caso de valor negativo
+            abrirCaixa(sc); // Tenta novamente em caso de valor negativo
         } catch (Exception e) {
             System.err.println("Erro ao processar o valor de abertura. Tente novamente.");
-            abrirCaixa(); // Reinicia o processo em caso de erro de digitação
+            abrirCaixa(sc); // Reinicia o processo em caso de erro de digitação
         }
     }
 
