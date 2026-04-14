@@ -25,7 +25,6 @@ Main {
         ProdutosRepository produtosRepo = new ProdutosRepository(em);
 
         // 3. Instanciação dos Controllers com a suas dependências
-        CaixaController caixa = new CaixaController();
         MenuController menu = new MenuController();
         IngredienteController estoque = new IngredienteController();
         Scanner sc = new Scanner(System.in);
@@ -47,10 +46,10 @@ Main {
         );
 
         try {
-            caixa.abrirCaixa();
+            caixaController.abrirCaixa();
 
             boolean rodando = true;
-            while (rodando && caixa.isCaixaAberto()) {
+            while (rodando && caixaController.isCaixaAberto()) {
                 // Exibe apenas o menu visual
                 menu.exibirMenuPrincipal();
 
@@ -69,10 +68,10 @@ Main {
                     }
                     case 3 -> {
                         System.out.println("\n\tINICIANDO PEDIDO");
-                        pedidosController.fazerPedido(sc);
+                        pedidosController.fazerPedido(sc, caixaController);
                     }
                     case 4 -> {
-                        caixa.fecharCaixa();
+                        caixaController.fecharCaixa();
                         rodando = false;
                     }
                     default -> System.out.println("Opção inválida! Tente novamente.");

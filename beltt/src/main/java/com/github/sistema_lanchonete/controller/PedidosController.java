@@ -35,7 +35,7 @@ public class PedidosController {
         System.out.println("Produto " + produtoId + " adicionado. Quantidade atual: " + itensCarrinho.get(produtoId));
     }
 
-    public void finalizarPedido(Scanner sc) {
+    public void finalizarPedido(Scanner sc, CaixaController caixa) {
         if (itensCarrinho.isEmpty()) {
             System.out.println("Carrinho vazio!");
             return;
@@ -79,13 +79,14 @@ public class PedidosController {
             System.out.println("metodo: " + pagamento.getMetodo());
             System.out.println("valor final: " + pagamento.getValorFinal());
             System.out.println("status: " + pagamento.getStatus());
-            this.caixaController.registrarVenda(pagamento.getValorFinal());
+            caixa.registrarVenda(pagamento.getValorFinal());
+            if(opcao == 4){caixa.adicionarDinheiro(pagamento.getValorFinal());}
         } catch (Exception e){
             System.out.println("erro ao finalizar: " + e.getMessage());
         }
     }
 
-    public void fazerPedido(Scanner sc) {
+    public void fazerPedido(Scanner sc, CaixaController caixa) {
         itensCarrinho.clear();
 
         do{
@@ -101,6 +102,6 @@ public class PedidosController {
             int opc = LeitoresController.lerInteiro(sc);
             if(opc == 2){ break; }
         } while (true);
-        finalizarPedido(sc);
+        finalizarPedido(sc, caixa);
     }
 }
