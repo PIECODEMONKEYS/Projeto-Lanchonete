@@ -42,19 +42,21 @@ public class CaixaController {
         System.out.println("\n==============================");
         System.out.println("      RESUMO DO TURNO         ");
         System.out.println("==============================");
-        System.out.println("Pedidos realizados: " + totalPedidosNoTurno);
-        System.out.println("Total vendido: R$ " + totalVendidoNoTurno);
-        System.out.println("Saldo final em gaveta: R$ " + saldoEmCaixa);
+        System.out.println("Pedidos realizados: " + this.totalPedidosNoTurno);
+        System.out.println("Total vendido: R$ " + this.totalVendidoNoTurno);
+        System.out.println("Saldo final em gaveta: R$ " + this.saldoEmCaixa);
         System.out.println("==============================");
         this.caixaAberto = false;
     }
 
     public void registrarVenda(BigDecimal valor) {
         this.totalVendidoNoTurno = this.totalVendidoNoTurno.add(valor);
-        this.saldoEmCaixa = this.saldoEmCaixa.add(valor);
+        //this.saldoEmCaixa = this.saldoEmCaixa.add(valor);
         this.totalPedidosNoTurno++;
     }
-
+    public void adicionarDinheiro(BigDecimal valor) {
+        this.saldoEmCaixa = this.saldoEmCaixa.add(valor);
+    }
     public boolean isCaixaAberto() {
         return caixaAberto;
     }

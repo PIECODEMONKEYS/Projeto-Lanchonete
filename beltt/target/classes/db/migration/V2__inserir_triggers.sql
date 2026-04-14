@@ -1,4 +1,3 @@
---trigger para atualizar o estoque
 create or replace function fn_atualizar_estoque()
 returns trigger as $$
 begin
@@ -16,7 +15,6 @@ create trigger tg_atualiza_estoque after insert
     for each row
     execute function fn_atualizar_estoque();
 
---trigger para calcular o valor total da compra e atulizar ele
 CREATE OR REPLACE FUNCTION atualizar_total_pedido()
 returns TRIGGER AS $$
 BEGIN

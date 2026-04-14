@@ -35,7 +35,7 @@ public class PedidosController {
         System.out.println("Produto " + produtoId + " adicionado. Quantidade atual: " + itensCarrinho.get(produtoId));
     }
 
-    public void finalizarPedido(Scanner sc) {
+    public void finalizarPedido(Scanner sc, CaixaController caixa) {
         if (itensCarrinho.isEmpty()) {
             System.out.println("Carrinho vazio!");
             return;
@@ -79,33 +79,29 @@ public class PedidosController {
             System.out.println("metodo: " + pagamento.getMetodo());
             System.out.println("valor final: " + pagamento.getValorFinal());
             System.out.println("status: " + pagamento.getStatus());
-            this.caixaController.registrarVenda(pagamento.getValorFinal());
+            caixa.registrarVenda(pagamento.getValorFinal());
+            if(opcao == 4){caixa.adicionarDinheiro(pagamento.getValorFinal());}
         } catch (Exception e){
             System.out.println("erro ao finalizar: " + e.getMessage());
         }
     }
 
-    public void procurarPorData(Scanner sc)//apagar isso kkkkk
-    {
-        Integer ano = LeitoresController.lerAno(sc);
-        Integer mes = LeitoresController.lerMes(sc);
-        Integer dia = LeitoresController.lerDia(sc);
+    public void fazerPedido(Scanner sc, CaixaController caixa) {
+        itensCarrinho.clear();
 
-        try {
-            List<Pedidos> pedidosEncontrados = repository.ProcurarDia(ano, mes, dia);
+        do{
+            System.out.println("Digite o id do produto: ");
+            long produtoId = LeitoresController.lerInteiro(sc);
 
-            if (pedidosEncontrados.isEmpty()) {
-                System.out.println("Nenhum pedido encontrado para a data " + dia + "/" + mes + "/" + ano);
-            } else {
-                System.out.println("\nPedidos encontrados:");
-                for (Pedidos p : pedidosEncontrados) {
-                    System.out.println("ID: " + p.getId() +
-                            " | Hora: " + p.getDataHora().toLocalTime() +
-                            " | Total: R$ " + p.getValorTotal());
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Erro ao buscar pedidos: " + e.getMessage());
-        }
+            System.out.println("digite a quantidade: ");
+            int quantidade = LeitoresController.lerInteiro(sc);
+
+            adicionarItem(produtoId, quantidade);
+            System.out.println("Adicionar produto" +
+                    "\n1. sim \n2. nao");
+            int opc = LeitoresController.lerInteiro(sc);
+            if(opc == 2){ break; }
+        } while (true);
+        finalizarPedido(sc, caixa);
     }
 }
