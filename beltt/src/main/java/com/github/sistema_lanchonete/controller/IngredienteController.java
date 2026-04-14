@@ -19,8 +19,10 @@ public class IngredienteController {
         while (noEstoque) {
             System.out.println("\n\tGERENCIAMENTO DE ESTOQUE");
             System.out.println("1. Listar Estoque Atual");
-            System.out.println("2. Cadastrar ou atualizar Ingrediente");
-            System.out.println("3. Remover Ingrediente");//nao tinha no codigo do gui
+            System.out.println("2. Cadastrar Ingrediente");
+            //nao tava na regra de negocio
+           // System.out.println("3. Remover Ingrediente");
+            System.out.println("3. Atualizar Ingrediente");
             System.out.println("4. Voltar ao Menu Principal");
 
             System.out.println("Escolha uma opção: ");
@@ -29,7 +31,9 @@ public class IngredienteController {
             switch (escolha) {
                 case 1: listarIngredientes(); break;
                 case 2: cadastrarIngrediente(sc); break;
-                case 3: removerIngrediente(sc); break;
+                //n tava na regra de negocio
+               // case 3: removerIngrediente(sc); break;
+                case 3: atualizarIngrediente(sc); break;
                 case 4: noEstoque = false; break;
                 default: System.out.println("Opção inválida!");
             }
@@ -52,6 +56,7 @@ public class IngredienteController {
             System.err.println("Erro: " + e.getMessage());
         }
     }
+    /*
     private void removerIngrediente(Scanner sc) {
         System.out.println("\t1. Mostrar lista de Ingredientes\n" +
                 "\t2. Remover ingrediente por id\n" +
@@ -94,6 +99,9 @@ public class IngredienteController {
             }
         }while(ativo);
     }
+
+
+     */
     private void cadastrarIngrediente(Scanner sc) {
         System.out.println("Nome do ingrediente:");
         String nome = LeitoresController.lerString(sc);
@@ -103,21 +111,34 @@ public class IngredienteController {
             Ingrediente novo = new Ingrediente();
             novo.setNome(nome);
             novo.setEstoque(qtd);
-            if (repository.existePorNome(nome)) {
-                try{
-                    repository.atualizar(novo);
-                } catch (Exception e) {
-                    System.out.println("Erro ao atualizar o ingrediente: " + e.getMessage());
-                    return;
-                }
-            } else {
-                repository.salvar(novo);
-            }
+            repository.salvar(novo);
             System.out.println("Cadastrado!");
         } catch (Exception e) {
             System.err.println("Erro ao cadastrar ingrediente: " + e.getMessage());
         }
     }
+
+    private void atualizarIngrediente(Scanner sc) {
+        System.out.println("Digite o id do ingrediente");
+        int id = LeitoresController.lerInteiro(sc);
+        Ingrediente atualizado = repository.findById(id);
+        System.out.println("Nome do ingrediente:");
+        String nome = LeitoresController.lerString(sc);
+        System.out.println("Quantidade do estoque atual:");
+        int qtd = LeitoresController.lerInteiro(sc);
+        try {
+            atualizado.setNome(nome);
+            atualizado.setEstoque(qtd);
+            repository.atualizar(atualizado);
+            System.out.println("Cadastrado!");
+        } catch (Exception e) {
+            System.err.println("Erro ao atualizar ingrediente: " + e.getMessage());
+        }
+    }
+
+
+
+
     //pra q serve isso irmao??
     public void incrementarEstoqueSelecionado(Scanner sc) {
         try {

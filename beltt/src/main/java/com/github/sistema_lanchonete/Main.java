@@ -14,7 +14,9 @@ import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
 
-public class Main {
+public class
+
+Main {
     public static void main(String[] args) {
         // 1. Inicialização do Banco de Dados
         FlyWayConfig.migrate();
@@ -23,7 +25,6 @@ public class Main {
         ProdutosRepository produtosRepo = new ProdutosRepository(em);
 
         // 3. Instanciação dos Controllers com a suas dependências
-        CaixaController caixa = new CaixaController();
         MenuController menu = new MenuController();
         IngredienteController estoque = new IngredienteController();
         Scanner sc = new Scanner(System.in);
@@ -45,10 +46,10 @@ public class Main {
         );
 
         try {
-            caixa.abrirCaixa();
+            caixaController.abrirCaixa();
 
             boolean rodando = true;
-            while (rodando && caixa.isCaixaAberto()) {
+            while (rodando && caixaController.isCaixaAberto()) {
                 // Exibe apenas o menu visual
                 menu.exibirMenuPrincipal();
 
@@ -67,17 +68,10 @@ public class Main {
                     }
                     case 3 -> {
                         System.out.println("\n\tINICIANDO PEDIDO");
-                        System.out.println("Digite o id do produto: ");
-                        long produtoId = LeitoresController.lerInteiro(sc);
-
-                        System.out.println("didgite a quantidade: ");
-                        int quantidade = LeitoresController.lerInteiro(sc);
-
-                        pedidosController.adicionarItem(produtoId, quantidade);
-                        pedidosController.finalizarPedido(sc);
+                        pedidosController.fazerPedido(sc, caixaController);
                     }
                     case 4 -> {
-                        caixa.fecharCaixa();
+                        caixaController.fecharCaixa();
                         rodando = false;
                     }
                     default -> System.out.println("Opção inválida! Tente novamente.");

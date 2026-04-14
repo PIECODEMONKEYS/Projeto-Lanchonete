@@ -1,15 +1,15 @@
 INSERT INTO ingredientes (nome, estoque) VALUES
-    ('Pão de Hambúrguer', 100),   -- ID 1
-    ('Hambúrguer 150g', 150),     -- ID 2
-    ('Queijo Cheddar', 200),      -- ID 3
-    ('Bacon em Fatias', 80),      -- ID 4
-    ('Alface', 50),               -- ID 5
-    ('Tomate', 50);               -- ID 6
+    ('pão de hambúrguer', 100),   -- ID 1
+    ('hambúrguer 150g', 150),     -- ID 2
+    ('queijo cheddar', 200),      -- ID 3
+    ('bacon em fatias', 80),      -- ID 4
+    ('alface', 50),               -- ID 5
+    ('tomate', 50);               -- ID 6
 
 INSERT INTO produtos (nome, preco) VALUES
-    ('X-Burguer Clássico', 22.50), -- ID 1
-    ('X-Bacon Monstro', 28.90),    -- ID 2
-    ('X-Salada Leve', 24.00);      -- ID 3
+    ('x-burguer clássico', 22.50), -- ID 1
+    ('x-bacon monstro', 28.90),    -- ID 2
+    ('x-salada leve', 24.00);      -- ID 3
 
 INSERT INTO produto_ingredientes (fk_produto_id, fk_ingredientes_id, quantidade) VALUES
 (1, 1, 1), -- 1 Pão

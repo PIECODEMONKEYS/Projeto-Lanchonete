@@ -65,17 +65,14 @@ public class ProdutosRepository {
         return em.createQuery("select c from Produtos c", Produtos.class).getResultList();
     }
 
-    public Produtos acharPeloNome(String name) {
+    public List<Produtos> acharPeloNome(String name) {
         try{
-            return em.createQuery("select c from Produtos c where c.nome = :name",
+            return em.createQuery("select c from Produtos c where c.nome like lower(:name)",
                             Produtos.class)
                     .setParameter("name", "%" + name + "%")
-                    .getResultList()
-                    .stream()
-                    .findFirst()
-                    .orElse(null);
+                    .getResultList();
         } catch (Exception e) {
-            throw new AcharProdutoException("Erro ao econtrar produto " + name, e);
+            throw new AcharProdutoException("Erro ao encontrar produto(s) " + name, e);
         }
     }
 }
